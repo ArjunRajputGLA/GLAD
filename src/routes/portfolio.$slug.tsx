@@ -9,7 +9,7 @@ export const Route = createFileRoute("/portfolio/$slug")({
   loader: ({ params }) => {
     const project = projects.find((p) => p.slug === params.slug);
     if (!project) throw notFound();
-    return { project };
+    return { project: project as (typeof projects)[number] };
   },
   head: ({ loaderData }) => ({
     meta: loaderData
