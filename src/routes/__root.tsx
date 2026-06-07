@@ -77,13 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Northbeam — Web, Mobile & AI Product Studio" },
+      { title: "Antigravity Labs — Web, Mobile & AI Product Studio" },
       {
         name: "description",
         content:
-          "Northbeam is a senior software studio building web apps, mobile apps and AI products for startups and growing businesses.",
+          "Antigravity Labs is a premium software studio building web apps, mobile apps and AI products for startups and growing businesses.",
       },
-      { property: "og:site_name", content: "Northbeam" },
+      { property: "og:site_name", content: "Antigravity Labs" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       {
@@ -96,7 +96,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@400;500;600;700&display=swap",
       },
     ],
   }),

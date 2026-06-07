@@ -12,11 +12,17 @@ import {
   Layers,
   Shield,
   Check,
+  Quote,
 } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { HeroBackground } from "@/components/site/Background";
-import { Reveal } from "@/components/site/Reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
+import { SectionHeading } from "@/components/site/SectionHeading";
+import { ProjectCard } from "@/components/site/ProjectCard";
+import { AnimatedCounter } from "@/components/site/AnimatedCounter";
+import { LogoStrip } from "@/components/site/LogoStrip";
+import { Field, SelectField } from "@/components/site/FormFields";
 import { services, projects, testimonials, faqs } from "@/components/site/data";
 import {
   Accordion,
@@ -26,16 +32,16 @@ import {
 } from "@/components/ui/accordion";
 import { useState } from "react";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/")(  {
   head: () => ({
     meta: [
-      { title: "Northbeam — Web, Mobile & AI Product Studio" },
+      { title: "Antigravity Labs — Web, Mobile & AI Product Studio" },
       {
         name: "description",
         content:
           "We help startups and growing businesses ship web apps, mobile apps and AI-powered products that scale.",
       },
-      { property: "og:title", content: "Northbeam — Web, Mobile & AI Product Studio" },
+      { property: "og:title", content: "Antigravity Labs — Web, Mobile & AI Product Studio" },
       {
         property: "og:description",
         content:
@@ -72,6 +78,7 @@ function Home() {
     <div className="min-h-screen">
       <Header />
       <Hero />
+      <TechStrip />
       <Services />
       <WhyUs />
       <Process />
@@ -84,68 +91,125 @@ function Home() {
   );
 }
 
+/* ─── Hero ──────────────────────────────────────────── */
+
 function Hero() {
   return (
-    <section className="relative pt-40 pb-32">
+    <section className="relative pt-36 pb-24 md:pt-44 md:pb-32 overflow-hidden">
       <HeroBackground />
       <div className="mx-auto max-w-7xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-3xl"
-        >
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 backdrop-blur px-3 py-1 text-xs text-muted-foreground">
-            <span className="size-1.5 rounded-full bg-brand-gradient" />
-            Now booking projects for Q3 — 2 slots left
-          </div>
-          <h1 className="mt-6 text-5xl md:text-7xl font-semibold leading-[1.05] tracking-tight">
-            Building <span className="text-gradient">Web, Mobile &amp; AI</span>
-            <br />products that scale.
-          </h1>
-          <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
+        <div className="max-w-3xl">
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-border bg-surface/50 backdrop-blur-sm px-4 py-1.5 text-xs text-muted-foreground">
+              <span className="relative flex size-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full size-2 bg-emerald-400" />
+              </span>
+              Now booking projects for Q3 — 2 slots left
+            </div>
+          </motion.div>
+
+          {/* Heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-7 text-5xl md:text-7xl lg:text-[5.25rem] font-semibold leading-[1.05] tracking-tight"
+          >
+            Building{" "}
+            <span className="text-gradient animate-gradient bg-[length:200%_auto]">
+              Web, Mobile &amp; AI
+            </span>
+            <br />
+            products that scale.
+          </motion.h1>
+
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="mt-7 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
+          >
             We help startups and growing businesses transform ideas into powerful
             digital products — through custom software, mobile applications, and
             AI-powered solutions.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className="mt-9 flex flex-wrap gap-4"
+          >
             <Link
               to="/contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-brand-gradient px-6 py-3 text-sm font-medium text-primary-foreground glow-brand hover:opacity-95 transition"
+              className="group btn-primary animate-pulse-glow"
             >
               Book free consultation
-              <ArrowRight className="size-4 group-hover:translate-x-0.5 transition-transform" />
+              <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
             <Link
               to="/portfolio"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 backdrop-blur px-6 py-3 text-sm font-medium hover:bg-surface transition"
+              className="btn-secondary"
             >
               View our work
             </Link>
-          </div>
+          </motion.div>
 
-          <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl">
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.55 }}
+            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl"
+          >
             {[
-              ["40+", "Products shipped"],
-              ["10+", "Years combined"],
-              ["94%", "Client retention"],
-              ["3", "Senior engineers"],
-            ].map(([k, v]) => (
-              <div key={v}>
-                <div className="text-2xl md:text-3xl font-semibold text-gradient">{k}</div>
-                <div className="mt-1 text-xs text-muted-foreground">{v}</div>
+              { n: 40, suffix: "+", label: "Products shipped" },
+              { n: 10, suffix: "+", label: "Years combined" },
+              { n: 94, suffix: "%", label: "Client retention" },
+              { n: 3, suffix: "", label: "Senior engineers" },
+            ].map(({ n, suffix, label }) => (
+              <div key={label}>
+                <div className="text-2xl md:text-3xl font-semibold text-gradient">
+                  <AnimatedCounter target={n} suffix={suffix} duration={2} />
+                </div>
+                <div className="mt-1.5 text-xs text-muted-foreground tracking-wide">{label}</div>
               </div>
             ))}
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
 }
 
+/* ─── Tech Logo Strip ───────────────────────────────── */
+
+function TechStrip() {
+  return (
+    <section className="relative py-6 section-divider">
+      <div className="mx-auto max-w-7xl px-6">
+        <p className="text-center text-xs uppercase tracking-[0.2em] text-muted-foreground/60 mb-4">
+          Technologies we work with
+        </p>
+        <LogoStrip />
+      </div>
+    </section>
+  );
+}
+
+/* ─── Services ──────────────────────────────────────── */
+
 function Services() {
   return (
-    <section className="relative py-24">
+    <section className="relative py-28 section-divider">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
           <SectionHeading
@@ -154,65 +218,71 @@ function Services() {
             sub="Five focused practices — picked because they're where small teams create the most leverage."
           />
         </Reveal>
-        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((s, i) => {
+        <RevealGroup className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
+          {services.map((s) => {
             const Icon = serviceIcons[s.slug];
             return (
-              <Reveal key={s.slug} delay={i * 0.05}>
+              <RevealItem key={s.slug}>
                 <Link
                   to="/services"
-                  className="group relative block surface-card p-6 h-full hover:border-ring/60 transition-colors"
+                  className="group relative block surface-card interactive-card shine-on-hover p-7 h-full"
                 >
-                  <div className="absolute inset-0 rounded-[inherit] bg-brand-soft opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="relative">
-                    <div className="size-11 rounded-xl bg-brand-gradient grid place-items-center text-primary-foreground">
+                  <div className="relative z-[2]">
+                    <div className="size-12 rounded-xl bg-brand-gradient grid place-items-center text-primary-foreground shadow-lg shadow-[var(--brand)]/20">
                       <Icon className="size-5" />
                     </div>
-                    <h3 className="mt-5 text-xl font-semibold">{s.title}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground">{s.short}</p>
-                    <div className="mt-5 inline-flex items-center gap-1 text-sm text-foreground/80 group-hover:text-foreground">
-                      Learn more <ArrowRight className="size-3.5" />
+                    <h3 className="mt-6 text-xl font-semibold tracking-tight">{s.title}</h3>
+                    <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">{s.short}</p>
+                    <div className="mt-6 inline-flex items-center gap-1.5 text-sm text-foreground/70 group-hover:text-foreground transition-colors">
+                      Learn more
+                      <ArrowRight className="size-3.5 group-hover:translate-x-1 transition-transform duration-300" />
                     </div>
                   </div>
                 </Link>
-              </Reveal>
+              </RevealItem>
             );
           })}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );
 }
 
+/* ─── Why Us ────────────────────────────────────────── */
+
 function WhyUs() {
   return (
-    <section className="relative py-24">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="relative py-28 section-divider noise-bg">
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
         <Reveal>
           <SectionHeading
             eyebrow="Why teams choose us"
             title="A small studio that ships like a product team."
           />
         </Reveal>
-        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {whyUs.map((w, i) => (
-            <Reveal key={w.title} delay={i * 0.05}>
-              <div className="surface-card p-6 h-full">
-                <w.icon className="size-5 text-foreground" />
-                <h3 className="mt-4 text-base font-semibold">{w.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{w.body}</p>
+        <RevealGroup className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-4" stagger={0.06}>
+          {whyUs.map((w) => (
+            <RevealItem key={w.title}>
+              <div className="surface-card interactive-card p-7 h-full">
+                <div className="size-10 rounded-lg bg-surface-2 grid place-items-center">
+                  <w.icon className="size-5 text-foreground" />
+                </div>
+                <h3 className="mt-5 text-base font-semibold tracking-tight">{w.title}</h3>
+                <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">{w.body}</p>
               </div>
-            </Reveal>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );
 }
 
+/* ─── Process ───────────────────────────────────────── */
+
 function Process() {
   return (
-    <section className="relative py-24">
+    <section className="relative py-28 section-divider">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
           <SectionHeading
@@ -221,120 +291,116 @@ function Process() {
             sub="From first call to launch, you always know where we are and what's next."
           />
         </Reveal>
-        <div className="mt-14 relative">
-          <div className="absolute left-0 right-0 top-5 h-px bg-gradient-to-r from-transparent via-border to-transparent hidden md:block" />
-          <ol className="grid gap-6 md:grid-cols-6">
+        <div className="mt-16 relative">
+          {/* Connecting line */}
+          <div className="absolute left-0 right-0 top-6 h-px bg-gradient-to-r from-transparent via-border to-transparent hidden md:block" />
+          <RevealGroup className="grid gap-8 md:grid-cols-6" stagger={0.06}>
             {processSteps.map((step, i) => (
-              <Reveal key={step} delay={i * 0.05}>
-                <li className="relative">
-                  <div className="size-10 rounded-full bg-surface border border-border grid place-items-center text-sm font-semibold relative z-10">
+              <RevealItem key={step} direction="scale">
+                <div className="relative text-center md:text-left">
+                  <div className="size-12 rounded-full bg-surface border border-border grid place-items-center text-sm font-semibold relative z-10 mx-auto md:mx-0 shadow-lg">
                     <span className="text-gradient">0{i + 1}</span>
                   </div>
-                  <h4 className="mt-4 font-medium">{step}</h4>
-                </li>
-              </Reveal>
+                  <h4 className="mt-4 font-medium tracking-tight">{step}</h4>
+                </div>
+              </RevealItem>
             ))}
-          </ol>
+          </RevealGroup>
         </div>
-        <div className="mt-10">
-          <Link to="/process" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1">
-            See the full process <ArrowRight className="size-3.5" />
-          </Link>
-        </div>
+        <Reveal delay={0.3}>
+          <div className="mt-12">
+            <Link to="/process" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 transition-colors group">
+              See the full process
+              <ArrowRight className="size-3.5 group-hover:translate-x-1 transition-transform duration-300" />
+            </Link>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
 }
 
+/* ─── Featured Work ─────────────────────────────────── */
+
 function Featured() {
   return (
-    <section className="relative py-24">
+    <section className="relative py-28 section-divider">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
           <div className="flex items-end justify-between gap-6 flex-wrap">
             <SectionHeading eyebrow="Featured work" title="Selected projects." />
-            <Link to="/portfolio" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1">
-              View all <ArrowRight className="size-3.5" />
+            <Link to="/portfolio" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 transition-colors group">
+              View all
+              <ArrowRight className="size-3.5 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
           </div>
         </Reveal>
-        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {projects.slice(0, 3).map((p, i) => (
-            <Reveal key={p.slug} delay={i * 0.05}>
-              <Link
-                to="/portfolio/$slug"
-                params={{ slug: p.slug }}
-                className="group block surface-card overflow-hidden hover:border-ring/60 transition"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <div className="absolute inset-0" style={{ background: p.gradient }} />
-                  <div className="absolute inset-0 grid-bg opacity-30" />
-                  <div className="absolute inset-0 grid place-items-center">
-                    <span className="text-4xl font-display font-semibold text-white/90">{p.name}</span>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <div className="text-xs text-muted-foreground">{p.category}</div>
-                  <h3 className="mt-1 text-lg font-semibold">{p.name}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{p.short}</p>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {p.tech.map((t) => (
-                      <span key={t} className="text-[11px] rounded-full border border-border px-2 py-0.5 text-muted-foreground">{t}</span>
-                    ))}
-                  </div>
-                </div>
-              </Link>
-            </Reveal>
+        <RevealGroup className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.08}>
+          {projects.slice(0, 3).map((p) => (
+            <RevealItem key={p.slug}>
+              <ProjectCard project={p} />
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );
 }
 
+/* ─── Testimonials ──────────────────────────────────── */
+
 function Testimonials() {
   return (
-    <section className="relative py-24">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="relative py-28 section-divider noise-bg">
+      <div className="relative z-10 mx-auto max-w-7xl px-6">
         <Reveal>
           <SectionHeading eyebrow="Kind words" title="What our clients say." />
         </Reveal>
-        <div className="mt-14 grid gap-5 md:grid-cols-3">
-          {testimonials.map((t, i) => (
-            <Reveal key={t.name} delay={i * 0.05}>
-              <figure className="surface-card p-6 h-full">
-                <blockquote className="text-base leading-relaxed">“{t.quote}”</blockquote>
-                <figcaption className="mt-5 flex items-center gap-3">
-                  <div className="size-9 rounded-full bg-brand-gradient" />
+        <RevealGroup className="mt-16 grid gap-6 md:grid-cols-3" stagger={0.08}>
+          {testimonials.map((t) => (
+            <RevealItem key={t.name}>
+              <figure className="surface-card interactive-card p-7 h-full flex flex-col">
+                <Quote className="size-8 text-brand/30 mb-3 -ml-1" />
+                <blockquote className="text-base leading-relaxed flex-1">
+                  "{t.quote}"
+                </blockquote>
+                <figcaption className="mt-6 flex items-center gap-3 pt-5 border-t border-border">
+                  <div className="size-10 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground text-sm font-semibold">
+                    {t.name.split(" ").map((n) => n[0]).join("")}
+                  </div>
                   <div>
                     <div className="text-sm font-medium">{t.name}</div>
                     <div className="text-xs text-muted-foreground">{t.role}</div>
                   </div>
                 </figcaption>
               </figure>
-            </Reveal>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );
 }
 
+/* ─── FAQ ────────────────────────────────────────────── */
+
 function Faq() {
   return (
-    <section className="relative py-24">
+    <section className="relative py-28 section-divider">
       <div className="mx-auto max-w-3xl px-6">
         <Reveal>
-          <SectionHeading eyebrow="FAQ" title="Common questions." />
+          <SectionHeading eyebrow="FAQ" title="Common questions." center />
         </Reveal>
-        <Reveal>
-          <Accordion type="single" collapsible className="mt-10 w-full">
+        <Reveal delay={0.1}>
+          <Accordion type="single" collapsible className="mt-12 w-full">
             {faqs.map((f, i) => (
               <AccordionItem key={i} value={`item-${i}`} className="border-border">
-                <AccordionTrigger className="text-left text-base font-medium hover:no-underline">
+                <AccordionTrigger className="text-left text-base font-medium hover:no-underline py-5">
                   {f.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
+                <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+                  {f.a}
+                </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
@@ -344,39 +410,63 @@ function Faq() {
   );
 }
 
+/* ─── Final CTA ─────────────────────────────────────── */
+
 function FinalCTA() {
   const [submitted, setSubmitted] = useState(false);
   return (
-    <section className="relative py-24">
+    <section className="relative py-28">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="relative overflow-hidden surface-card p-10 md:p-14">
-          <div className="absolute inset-0 bg-brand-soft opacity-60" />
+        <div className="relative overflow-hidden glass-card p-10 md:p-16">
+          {/* Background effects */}
+          <div className="absolute inset-0 bg-brand-soft opacity-50" />
           <div
-            className="absolute -top-20 -right-20 size-[420px] rounded-full blur-3xl opacity-40"
+            className="absolute -top-24 -right-24 size-[480px] rounded-full blur-[120px] opacity-30"
             style={{ background: "radial-gradient(closest-side, var(--brand), transparent)" }}
           />
-          <div className="relative grid gap-10 lg:grid-cols-2 items-start">
-            <div>
-              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
-                Let's build something <span className="text-gradient">great together.</span>
-              </h2>
-              <p className="mt-4 text-muted-foreground max-w-md">
-                Tell us about your project. We'll reply within one business day with
-                next steps or honest feedback if we're not the right fit.
-              </p>
-              <div className="mt-8 space-y-3 text-sm text-muted-foreground">
-                <div className="flex items-center gap-2"><Check className="size-4 text-foreground" /> 30-minute discovery call</div>
-                <div className="flex items-center gap-2"><Check className="size-4 text-foreground" /> Fixed-scope proposal in 48 hours</div>
-                <div className="flex items-center gap-2"><Check className="size-4 text-foreground" /> NDA available on request</div>
+          <div
+            className="absolute -bottom-24 -left-24 size-[380px] rounded-full blur-[100px] opacity-20"
+            style={{ background: "radial-gradient(closest-side, var(--brand-2), transparent)" }}
+          />
+
+          <div className="relative z-10 grid gap-12 lg:grid-cols-2 items-start">
+            <Reveal direction="left">
+              <div>
+                <h2 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1]">
+                  Let's build something{" "}
+                  <span className="text-gradient">great together.</span>
+                </h2>
+                <p className="mt-5 text-muted-foreground max-w-md leading-relaxed">
+                  Tell us about your project. We'll reply within one business day with
+                  next steps or honest feedback if we're not the right fit.
+                </p>
+                <div className="mt-8 space-y-3.5 text-sm text-muted-foreground">
+                  {[
+                    "30-minute discovery call",
+                    "Fixed-scope proposal in 48 hours",
+                    "NDA available on request",
+                  ].map((item) => (
+                    <div key={item} className="flex items-center gap-2.5">
+                      <div className="size-5 rounded-full bg-brand-gradient grid place-items-center">
+                        <Check className="size-3 text-primary-foreground" />
+                      </div>
+                      {item}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-            <ContactForm submitted={submitted} setSubmitted={setSubmitted} />
+            </Reveal>
+            <Reveal direction="right" delay={0.1}>
+              <ContactForm submitted={submitted} setSubmitted={setSubmitted} />
+            </Reveal>
           </div>
         </div>
       </div>
     </section>
   );
 }
+
+/* ─── Contact Form ──────────────────────────────────── */
 
 function ContactForm({
   submitted,
@@ -387,15 +477,19 @@ function ContactForm({
 }) {
   if (submitted) {
     return (
-      <div className="surface-card p-8 text-center">
-        <div className="mx-auto size-12 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground">
-          <Check className="size-6" />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="glass-card p-10 text-center"
+      >
+        <div className="mx-auto size-14 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground shadow-lg shadow-[var(--brand)]/20">
+          <Check className="size-7" />
         </div>
-        <h3 className="mt-4 text-xl font-semibold">Thanks — we got it.</h3>
+        <h3 className="mt-5 text-xl font-semibold">Thanks — we got it.</h3>
         <p className="mt-2 text-sm text-muted-foreground">
           We'll be in touch within one business day.
         </p>
-      </div>
+      </motion.div>
     );
   }
   return (
@@ -404,14 +498,14 @@ function ContactForm({
         e.preventDefault();
         setSubmitted(true);
       }}
-      className="surface-card p-6 space-y-3"
+      className="glass-card p-7 space-y-4"
     >
-      <div className="grid gap-3 md:grid-cols-2">
-        <Field label="Name" name="name" required />
-        <Field label="Email" name="email" type="email" required />
+      <div className="grid gap-4 md:grid-cols-2">
+        <Field label="Name" name="name" placeholder="Your name" required />
+        <Field label="Email" name="email" type="email" placeholder="you@company.com" required />
       </div>
-      <Field label="Company" name="company" />
-      <Field label="Project description" name="project" textarea required />
+      <Field label="Company" name="company" placeholder="Company name" />
+      <Field label="Project description" name="project" textarea placeholder="Tell us about your project..." required />
       <SelectField
         label="Budget range"
         name="budget"
@@ -425,79 +519,10 @@ function ContactForm({
       />
       <button
         type="submit"
-        className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-brand-gradient px-6 py-3 text-sm font-medium text-primary-foreground glow-brand hover:opacity-95 transition"
+        className="w-full btn-primary justify-center mt-2"
       >
         Send & book call <ArrowRight className="size-4" />
       </button>
     </form>
-  );
-}
-
-function Field({
-  label,
-  name,
-  type = "text",
-  required,
-  textarea,
-}: {
-  label: string;
-  name: string;
-  type?: string;
-  required?: boolean;
-  textarea?: boolean;
-}) {
-  const cls =
-    "w-full rounded-lg bg-background/60 border border-border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring/60";
-  return (
-    <label className="block">
-      <span className="text-xs text-muted-foreground">{label}</span>
-      {textarea ? (
-        <textarea name={name} required={required} rows={4} className={`${cls} mt-1`} />
-      ) : (
-        <input name={name} type={type} required={required} className={`${cls} mt-1`} />
-      )}
-    </label>
-  );
-}
-
-function SelectField({
-  label,
-  name,
-  options,
-}: {
-  label: string;
-  name: string;
-  options: string[];
-}) {
-  return (
-    <label className="block">
-      <span className="text-xs text-muted-foreground">{label}</span>
-      <select
-        name={name}
-        className="mt-1 w-full rounded-lg bg-background/60 border border-border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring/60"
-      >
-        {options.map((o) => (
-          <option key={o} className="bg-background">{o}</option>
-        ))}
-      </select>
-    </label>
-  );
-}
-
-export function SectionHeading({
-  eyebrow,
-  title,
-  sub,
-}: {
-  eyebrow: string;
-  title: string;
-  sub?: string;
-}) {
-  return (
-    <div className="max-w-2xl">
-      <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{eyebrow}</div>
-      <h2 className="mt-3 text-3xl md:text-5xl font-semibold tracking-tight">{title}</h2>
-      {sub && <p className="mt-4 text-muted-foreground">{sub}</p>}
-    </div>
   );
 }

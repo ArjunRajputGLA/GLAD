@@ -2,8 +2,9 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { Reveal } from "@/components/site/Reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
 import { projects } from "@/components/site/data";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/portfolio/$slug")({
   loader: ({ params }) => {
@@ -14,9 +15,9 @@ export const Route = createFileRoute("/portfolio/$slug")({
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
-          { title: `${loaderData.project.name} — Northbeam` },
+          { title: `${loaderData.project.name} — Antigravity Labs` },
           { name: "description", content: loaderData.project.short },
-          { property: "og:title", content: `${loaderData.project.name} — Northbeam` },
+          { property: "og:title", content: `${loaderData.project.name} — Antigravity Labs` },
           { property: "og:description", content: loaderData.project.short },
           { property: "og:type", content: "article" },
           { property: "og:url", content: `/portfolio/${loaderData.project.slug}` },
@@ -30,7 +31,7 @@ export const Route = createFileRoute("/portfolio/$slug")({
     <div className="min-h-screen grid place-items-center">
       <div className="text-center">
         <h1 className="text-2xl font-semibold">Project not found</h1>
-        <Link to="/portfolio" className="mt-4 inline-block text-muted-foreground hover:text-foreground">
+        <Link to="/portfolio" className="mt-4 inline-block text-muted-foreground hover:text-foreground transition-colors">
           ← Back to portfolio
         </Link>
       </div>
@@ -46,99 +47,134 @@ function ProjectPage() {
     <div className="min-h-screen">
       <Header />
 
+      {/* Header section */}
       <section className="relative pt-32 pb-12">
         <div className="mx-auto max-w-6xl px-6">
-          <Link to="/portfolio" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-            <ArrowLeft className="size-3.5" /> All projects
-          </Link>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Link to="/portfolio" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors group">
+              <ArrowLeft className="size-3.5 group-hover:-translate-x-0.5 transition-transform" /> All projects
+            </Link>
+          </motion.div>
+
           <div className="mt-8 grid gap-10 lg:grid-cols-[1.4fr_1fr] items-end">
-            <div>
-              <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{p.category}</div>
-              <h1 className="mt-3 text-5xl md:text-6xl font-semibold tracking-tight">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                <span className="inline-block w-6 h-px bg-brand-gradient" />
+                {p.category}
+              </div>
+              <h1 className="mt-4 text-5xl md:text-6xl font-semibold tracking-tight">
                 <span className="text-gradient">{p.name}</span>
               </h1>
-              <p className="mt-5 text-lg text-muted-foreground max-w-xl">{p.short}</p>
-            </div>
-            <div className="surface-card p-5">
-              <div className="text-xs uppercase tracking-wider text-muted-foreground">Tech Stack</div>
-              <div className="mt-3 flex flex-wrap gap-1.5">
+              <p className="mt-5 text-lg text-muted-foreground max-w-xl leading-relaxed">{p.short}</p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="glass-card p-6"
+            >
+              <div className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Tech Stack</div>
+              <div className="mt-3 flex flex-wrap gap-2">
                 {p.tech.map((t: string) => (
-                  <span key={t} className="text-xs rounded-full border border-border px-2.5 py-1 text-muted-foreground">{t}</span>
+                  <span key={t} className="text-xs rounded-full border border-border px-3 py-1 text-muted-foreground">{t}</span>
                 ))}
               </div>
-              <div className="mt-5 text-xs uppercase tracking-wider text-muted-foreground">Outcome</div>
-              <p className="mt-2 text-sm">{p.outcome}</p>
-            </div>
+              <div className="mt-6 text-xs uppercase tracking-wider text-muted-foreground font-medium">Outcome</div>
+              <p className="mt-2 text-sm font-medium">{p.outcome}</p>
+            </motion.div>
           </div>
 
-          <div className="mt-12 relative aspect-[16/8] rounded-2xl overflow-hidden border border-border">
+          {/* Hero image */}
+          <motion.div
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="mt-14 relative aspect-[16/8] rounded-2xl overflow-hidden border border-border shadow-2xl"
+          >
             <div className="absolute inset-0" style={{ background: p.gradient }} />
-            <div className="absolute inset-0 grid-bg opacity-30" />
+            <div className="absolute inset-0 grid-bg opacity-25" />
             <div className="absolute inset-0 grid place-items-center">
-              <span className="text-6xl md:text-8xl font-display font-semibold text-white/90">{p.name}</span>
+              <span className="text-6xl md:text-8xl font-display font-semibold text-white/90 drop-shadow-lg">{p.name}</span>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      <section className="relative py-16">
-        <div className="mx-auto max-w-6xl px-6 grid gap-10 lg:grid-cols-2">
-          <Reveal>
+      {/* Challenge / Solution */}
+      <section className="relative py-20 section-divider">
+        <div className="mx-auto max-w-6xl px-6 grid gap-8 lg:grid-cols-2">
+          <Reveal direction="left">
             <Block title="The Challenge">{p.challenge}</Block>
           </Reveal>
-          <Reveal delay={0.05}>
+          <Reveal direction="right" delay={0.08}>
             <Block title="The Solution">{p.solution}</Block>
           </Reveal>
         </div>
       </section>
 
-      <section className="relative py-16">
+      {/* Features */}
+      <section className="relative py-20 section-divider">
         <div className="mx-auto max-w-6xl px-6">
           <Reveal>
             <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Key features</h2>
           </Reveal>
-          <div className="mt-8 grid gap-3 md:grid-cols-2">
-            {p.features.map((f: string, i: number) => (
-              <Reveal key={f} delay={i * 0.04}>
-                <div className="surface-card p-5 flex items-start gap-3">
-                  <Check className="size-4 mt-0.5 text-foreground" />
-                  <span className="text-sm">{f}</span>
+          <RevealGroup className="mt-10 grid gap-4 md:grid-cols-2" stagger={0.06}>
+            {p.features.map((f: string) => (
+              <RevealItem key={f} direction="scale">
+                <div className="surface-card interactive-card p-6 flex items-start gap-3.5">
+                  <div className="size-6 rounded-full bg-brand-gradient grid place-items-center shrink-0 mt-0.5">
+                    <Check className="size-3.5 text-primary-foreground" />
+                  </div>
+                  <span className="text-sm font-medium">{f}</span>
                 </div>
-              </Reveal>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
 
-      <section className="relative py-16">
+      {/* Screenshots */}
+      <section className="relative py-20 section-divider">
         <div className="mx-auto max-w-6xl px-6">
           <Reveal>
             <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Screenshots</h2>
           </Reveal>
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <RevealGroup className="mt-10 grid gap-6 md:grid-cols-2" stagger={0.08}>
             {[0, 1].map((i) => (
-              <Reveal key={i} delay={i * 0.05}>
-                <div className="relative aspect-[16/10] rounded-xl overflow-hidden border border-border">
+              <RevealItem key={i} direction="scale">
+                <div className="relative aspect-[16/10] rounded-xl overflow-hidden border border-border shadow-xl">
                   <div className="absolute inset-0 opacity-90" style={{ background: p.gradient }} />
-                  <div className="absolute inset-0 grid-bg opacity-30" />
+                  <div className="absolute inset-0 grid-bg opacity-25" />
                 </div>
-              </Reveal>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
 
-      <section className="relative py-20">
+      {/* CTA */}
+      <section className="relative py-24">
         <div className="mx-auto max-w-4xl px-6 text-center">
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
-            Have a similar project in mind?
-          </h2>
-          <Link
-            to="/contact"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand-gradient px-6 py-3 text-sm font-medium text-primary-foreground glow-brand"
-          >
-            Book a free consultation <ArrowRight className="size-4" />
-          </Link>
+          <Reveal direction="scale">
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
+              Have a similar project in mind?
+            </h2>
+            <Link
+              to="/contact"
+              className="mt-8 btn-primary inline-flex animate-pulse-glow"
+            >
+              Book a free consultation <ArrowRight className="size-4" />
+            </Link>
+          </Reveal>
         </div>
       </section>
 
@@ -149,7 +185,7 @@ function ProjectPage() {
 
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="surface-card p-8">
+    <div className="surface-card p-8 h-full">
       <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
       <p className="mt-4 text-muted-foreground leading-relaxed">{children}</p>
     </div>

@@ -1,20 +1,22 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { HeroBackground } from "@/components/site/Background";
-import { Reveal } from "@/components/site/Reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
+import { ProjectCard } from "@/components/site/ProjectCard";
 import { projects } from "@/components/site/data";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
     meta: [
-      { title: "Portfolio — Northbeam" },
+      { title: "Portfolio — Antigravity Labs" },
       {
         name: "description",
         content:
-          "Selected projects across SaaS, mobile, AI and business automation — built by Northbeam for startups and growing businesses.",
+          "Selected projects across SaaS, mobile, AI and business automation — built by Antigravity Labs for startups and growing businesses.",
       },
-      { property: "og:title", content: "Portfolio — Northbeam" },
+      { property: "og:title", content: "Portfolio — Antigravity Labs" },
       {
         property: "og:description",
         content: "Selected projects across SaaS, mobile, AI and business automation.",
@@ -30,53 +32,45 @@ function PortfolioPage() {
   return (
     <div className="min-h-screen">
       <Header />
-      <section className="relative pt-40 pb-16">
+
+      {/* Hero */}
+      <section className="relative pt-36 pb-16 md:pt-44 overflow-hidden">
         <HeroBackground />
         <div className="mx-auto max-w-7xl px-6">
-          <div className="max-w-3xl">
-            <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Portfolio</div>
-            <h1 className="mt-3 text-5xl md:text-6xl font-semibold tracking-tight">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-3xl"
+          >
+            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+              <span className="inline-block w-6 h-px bg-brand-gradient" />
+              Portfolio
+            </div>
+            <h1 className="mt-4 text-5xl md:text-6xl font-semibold tracking-tight leading-[1.1]">
               Selected <span className="text-gradient">work.</span>
             </h1>
-            <p className="mt-5 text-lg text-muted-foreground">
+            <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
               A small sample of what we've shipped — from MVPs to AI products and
               internal platforms.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      <section className="relative pb-24">
-        <div className="mx-auto max-w-7xl px-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p, i) => (
-            <Reveal key={p.slug} delay={i * 0.04}>
-              <Link
-                to="/portfolio/$slug"
-                params={{ slug: p.slug }}
-                className="group block surface-card overflow-hidden hover:border-ring/60 transition"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105" style={{ background: p.gradient }} />
-                  <div className="absolute inset-0 grid-bg opacity-30" />
-                  <div className="absolute inset-0 grid place-items-center">
-                    <span className="text-4xl font-display font-semibold text-white/90">{p.name}</span>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <div className="text-xs text-muted-foreground">{p.category}</div>
-                  <h3 className="mt-1 text-lg font-semibold">{p.name}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{p.short}</p>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {p.tech.map((t) => (
-                      <span key={t} className="text-[11px] rounded-full border border-border px-2 py-0.5 text-muted-foreground">{t}</span>
-                    ))}
-                  </div>
-                </div>
-              </Link>
-            </Reveal>
-          ))}
+      {/* Projects grid */}
+      <section className="relative pb-28">
+        <div className="mx-auto max-w-7xl px-6">
+          <RevealGroup className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
+            {projects.map((p) => (
+              <RevealItem key={p.slug}>
+                <ProjectCard project={p} />
+              </RevealItem>
+            ))}
+          </RevealGroup>
         </div>
       </section>
+
       <Footer />
     </div>
   );

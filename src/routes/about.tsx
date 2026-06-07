@@ -3,18 +3,20 @@ import { Lightbulb, ShieldCheck, Eye, Sparkles } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { HeroBackground } from "@/components/site/Background";
-import { Reveal } from "@/components/site/Reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
+import { SectionHeading } from "@/components/site/SectionHeading";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Northbeam" },
+      { title: "About — Antigravity Labs" },
       {
         name: "description",
         content:
           "We build products, not just software. A senior team of engineers helping startups and businesses bring ideas to life.",
       },
-      { property: "og:title", content: "About — Northbeam" },
+      { property: "og:title", content: "About — Antigravity Labs" },
       {
         property: "og:description",
         content:
@@ -44,30 +46,42 @@ function AboutPage() {
   return (
     <div className="min-h-screen">
       <Header />
-      <section className="relative pt-40 pb-20">
+
+      {/* Hero */}
+      <section className="relative pt-36 pb-20 md:pt-44 overflow-hidden">
         <HeroBackground />
         <div className="mx-auto max-w-5xl px-6">
-          <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">About</div>
-          <h1 className="mt-3 text-5xl md:text-7xl font-semibold tracking-tight max-w-4xl">
-            We build <span className="text-gradient">products</span>,<br />not just software.
-          </h1>
-          <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
-            Northbeam is a small studio of three senior engineers. We help startups
-            and growing businesses turn ideas into shipped products — web, mobile
-            and AI — with the rigor of a great in-house team.
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+              <span className="inline-block w-6 h-px bg-brand-gradient" />
+              About
+            </div>
+            <h1 className="mt-4 text-5xl md:text-7xl font-semibold tracking-tight max-w-4xl leading-[1.05]">
+              We build <span className="text-gradient">products</span>,<br />not just software.
+            </h1>
+            <p className="mt-7 text-lg text-muted-foreground max-w-2xl leading-relaxed">
+              Antigravity Labs is a small studio of three senior engineers. We help startups
+              and growing businesses turn ideas into shipped products — web, mobile
+              and AI — with the rigor of a great in-house team.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      <section className="relative py-16">
-        <div className="mx-auto max-w-5xl px-6 grid gap-10 md:grid-cols-2">
-          <Reveal>
+      {/* Story */}
+      <section className="relative py-20 section-divider">
+        <div className="mx-auto max-w-5xl px-6 grid gap-12 md:grid-cols-2 items-start">
+          <Reveal direction="left">
             <h2 className="text-3xl font-semibold tracking-tight">Our story</h2>
           </Reveal>
-          <Reveal delay={0.05}>
-            <div className="space-y-4 text-muted-foreground leading-relaxed">
+          <Reveal direction="right" delay={0.08}>
+            <div className="space-y-5 text-muted-foreground leading-relaxed">
               <p>
-                We started Northbeam because we kept seeing the same thing: founders
+                We started Antigravity Labs because we kept seeing the same thing: founders
                 spending months on agencies that overpromised, underdelivered, and
                 left them with code they couldn't maintain.
               </p>
@@ -81,47 +95,53 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="relative py-20">
-        <div className="mx-auto max-w-6xl px-6">
+      {/* Values */}
+      <section className="relative py-24 section-divider noise-bg">
+        <div className="relative z-10 mx-auto max-w-6xl px-6">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Values.</h2>
+            <SectionHeading eyebrow="What drives us" title="Values." />
           </Reveal>
-          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {values.map((v, i) => (
-              <Reveal key={v.title} delay={i * 0.05}>
-                <div className="surface-card p-6 h-full">
-                  <v.icon className="size-5" />
-                  <h3 className="mt-4 font-semibold">{v.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{v.body}</p>
+          <RevealGroup className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4" stagger={0.06}>
+            {values.map((v) => (
+              <RevealItem key={v.title}>
+                <div className="surface-card interactive-card p-7 h-full">
+                  <div className="size-10 rounded-lg bg-surface-2 grid place-items-center">
+                    <v.icon className="size-5" />
+                  </div>
+                  <h3 className="mt-5 font-semibold tracking-tight">{v.title}</h3>
+                  <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">{v.body}</p>
                 </div>
-              </Reveal>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
 
-      <section className="relative py-20">
+      {/* Team */}
+      <section className="relative py-24 section-divider">
         <div className="mx-auto max-w-6xl px-6">
           <Reveal>
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">The team.</h2>
+            <SectionHeading eyebrow="The people" title="The team." />
           </Reveal>
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {team.map((m, i) => (
-              <Reveal key={m.name} delay={i * 0.05}>
-                <div className="surface-card p-6">
-                  <div className="aspect-square rounded-xl bg-brand-gradient mb-5 relative overflow-hidden">
-                    <div className="absolute inset-0 grid-bg opacity-30" />
-                    <div className="absolute inset-0 grid place-items-center text-5xl font-display font-semibold text-white/90">
+          <RevealGroup className="mt-12 grid gap-6 md:grid-cols-3" stagger={0.08}>
+            {team.map((m) => (
+              <RevealItem key={m.name} direction="scale">
+                <div className="surface-card interactive-card overflow-hidden">
+                  <div className="aspect-square bg-brand-gradient relative overflow-hidden">
+                    <div className="absolute inset-0 grid-bg opacity-25" />
+                    <div className="absolute inset-0 grid place-items-center text-5xl font-display font-semibold text-white/90 drop-shadow-lg">
                       {m.name.split(" ").map((n) => n[0]).join("")}
                     </div>
                   </div>
-                  <h3 className="text-lg font-semibold">{m.name}</h3>
-                  <div className="text-xs text-muted-foreground">{m.role}</div>
-                  <p className="mt-3 text-sm text-muted-foreground">{m.bio}</p>
+                  <div className="p-6">
+                    <h3 className="text-lg font-semibold tracking-tight">{m.name}</h3>
+                    <div className="text-xs text-muted-foreground mt-1">{m.role}</div>
+                    <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{m.bio}</p>
+                  </div>
                 </div>
-              </Reveal>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
 
