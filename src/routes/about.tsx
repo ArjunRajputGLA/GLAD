@@ -36,10 +36,16 @@ const values = [
   { icon: Sparkles, title: "Quality", body: "Type-safe, tested, observable. Boring code so your product can be exciting." },
 ];
 
+import arjunImg from "./images/arjun.jpg";
+import jatinImg from "./images/jatin.jpg";
+import parthImg from "./images/parth.jpg";
+import someshImg from "./images/somesh.jpeg";
+
 const team = [
-  { name: "Aarav Mehta", role: "Co-founder · Product Engineer", bio: "Full-stack engineer with 8+ years building SaaS and AI products." },
-  { name: "Sofia Rivera", role: "Co-founder · Mobile Lead", bio: "Flutter & iOS specialist. Shipped 20+ apps across fintech and edtech." },
-  { name: "Daniel Park", role: "Co-founder · AI & Infrastructure", bio: "Designs scalable systems and LLM-powered features that just work." },
+  { name: "Arjun Singh Rajput", role: "Founder & CEO", bio: "Driving the vision, strategy, and execution.", image: arjunImg },
+  { name: "Jatin Khetan", role: "Co-founder & CTO", bio: "Architecting scalable systems and leading technical innovation.", image: jatinImg },
+  { name: "Parth Garg", role: "CFO & Head of Product & Design", bio: "Managing financials and crafting seamless user experiences.", image: parthImg },
+  { name: "Somesh Rajput", role: "Founding Product Engineer & Developer", bio: "Building robust, user-centric core product features.", image: someshImg },
 ];
 
 function AboutPage() {
@@ -64,7 +70,7 @@ function AboutPage() {
               We build <span className="text-gradient">products</span>,<br />not just software.
             </h1>
             <p className="mt-7 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              GLAD studio is a small studio of three senior engineers. We help startups
+              GLAD studio is a dedicated team of four builders. We help startups
               and growing businesses turn ideas into shipped products — web, mobile
               and AI — with the rigor of a great in-house team.
             </p>
@@ -86,7 +92,7 @@ function AboutPage() {
                 left them with code they couldn't maintain.
               </p>
               <p>
-                So we built something different — a tiny, senior team that works on
+                So we built something different — a dedicated team of four that works on
                 a small number of projects at a time, ships every week, and treats
                 your product like our own.
               </p>
@@ -123,17 +129,27 @@ function AboutPage() {
           <Reveal>
             <SectionHeading eyebrow="The people" title="The team." />
           </Reveal>
-          <RevealGroup className="mt-12 grid gap-6 md:grid-cols-3" stagger={0.08}>
+          <RevealGroup className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4" stagger={0.08}>
             {team.map((m) => (
               <RevealItem key={m.name} direction="scale">
-                <div className="surface-card interactive-card overflow-hidden">
+                <div className="surface-card interactive-card overflow-hidden group">
                   <div className="aspect-square bg-brand-gradient relative overflow-hidden">
-                    <div className="absolute inset-0 grid-bg opacity-25" />
-                    <div className="absolute inset-0 grid place-items-center text-5xl font-display font-semibold text-white/90 drop-shadow-lg">
-                      {m.name.split(" ").map((n) => n[0]).join("")}
-                    </div>
+                    {m.image ? (
+                      <img 
+                        src={m.image} 
+                        alt={m.name}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    ) : (
+                      <>
+                        <div className="absolute inset-0 grid-bg opacity-25" />
+                        <div className="absolute inset-0 grid place-items-center text-5xl font-display font-semibold text-white/90 drop-shadow-lg transition-transform duration-500 group-hover:scale-110">
+                          {m.name.split(" ").map((n) => n[0]).join("")}
+                        </div>
+                      </>
+                    )}
                   </div>
-                  <div className="p-6">
+                  <div className="p-6 relative bg-inherit z-10">
                     <h3 className="text-lg font-semibold tracking-tight">{m.name}</h3>
                     <div className="text-xs text-muted-foreground mt-1">{m.role}</div>
                     <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{m.bio}</p>
