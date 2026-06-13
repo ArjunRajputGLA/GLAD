@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ScrollProgress } from "./ScrollProgress";
+import logo from "../../routes/images/website logo(black background compatible).png";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -35,13 +36,12 @@ export function Header() {
       >
         <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <span className="size-8 rounded-lg bg-brand-gradient grid place-items-center text-primary-foreground font-bold text-sm shadow-lg shadow-[var(--brand)]/20 transition-transform duration-300 group-hover:scale-110">
-              G
-            </span>
-            <span className="font-display font-semibold tracking-tight text-lg">
-              GLAD<span className="text-muted-foreground"> studio</span>
-            </span>
+          <Link to="/" className="flex items-center group">
+            <img
+              src={logo}
+              alt="Website Logo"
+              className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
           </Link>
 
           {/* Desktop Nav */}

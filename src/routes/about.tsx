@@ -43,8 +43,8 @@ import someshImg from "./images/somesh.jpeg";
 
 const team = [
   { name: "Arjun Singh Rajput", role: "Founder & CEO", bio: "Driving the vision, strategy, and execution.", image: arjunImg },
-  { name: "Jatin Khetan", role: "Co-founder & CTO", bio: "Architecting scalable systems and leading technical innovation.", image: jatinImg },
-  { name: "Parth Garg", role: "CFO & Head of Product & Design", bio: "Managing financials and crafting seamless user experiences.", image: parthImg },
+  { name: "Jatin Khetan", role: "Co-founder & CTO", bio: "Architecting scalable systems and leading technical innovation.", image: jatinImg, imageClass: "object-[center_20%]" },
+  { name: "Parth Garg", role: "CFO & Head of Product & Design", bio: "Managing financials and crafting seamless user experiences.", image: parthImg, imageClass: "object-[center_35%]" },
   { name: "Somesh Rajput", role: "Founding Product Engineer & Developer", bio: "Building robust, user-centric core product features.", image: someshImg },
 ];
 
@@ -135,10 +135,10 @@ function AboutPage() {
                 <div className="surface-card interactive-card overflow-hidden group">
                   <div className="aspect-square bg-brand-gradient relative overflow-hidden">
                     {m.image ? (
-                      <img 
-                        src={m.image} 
+                      <img
+                        src={m.image}
                         alt={m.name}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${m.imageClass || ""}`}
                       />
                     ) : (
                       <>

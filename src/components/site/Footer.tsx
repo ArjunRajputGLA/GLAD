@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUp, Github, Linkedin, Twitter } from "lucide-react";
+import logo from "../../routes/images/website logo(black background compatible).png";
 
 const socials = [
   { icon: Twitter, href: "#", label: "Twitter" },
@@ -18,13 +19,12 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-4">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-2.5">
-              <span className="size-8 rounded-lg bg-brand-gradient grid place-items-center text-primary-foreground font-bold text-sm">
-                G
-              </span>
-              <span className="font-display font-semibold tracking-tight text-lg">
-                GLAD studio
-              </span>
+            <div className="flex items-center">
+              <img
+                src={logo}
+                alt="Website Logo"
+                className="h-12 w-auto object-contain"
+              />
             </div>
             <p className="mt-4 max-w-sm text-sm text-muted-foreground leading-relaxed">
               A premium software studio building web, mobile, and AI-powered

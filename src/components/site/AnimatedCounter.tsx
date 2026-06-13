@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { motion, useInView, useMotionValue, animate, useTransform } from "framer-motion";
 
 export function AnimatedCounter({
   target,
@@ -17,8 +17,7 @@ export function AnimatedCounter({
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const count = useMotionValue(0);
-  const rounded = useTransform(count, (v) => Math.round(v));
-  const [display, setDisplay] = useState("0");
+  const display = useTransform(count, (latest) => `${prefix}${Math.round(latest)}${suffix}`);
 
   useEffect(() => {
     if (!isInView) return;
@@ -28,21 +27,14 @@ export function AnimatedCounter({
       ease: [0.22, 1, 0.36, 1],
     });
 
-    const unsubscribe = rounded.on("change", (v) => {
-      setDisplay(String(v));
-    });
-
     return () => {
       controls.stop();
-      unsubscribe();
     };
-  }, [isInView, target, duration, count, rounded]);
+  }, [isInView, target, duration, count]);
 
   return (
-    <span ref={ref} className={className}>
-      {prefix}
+    <motion.span ref={ref} className={className}>
       {display}
-      {suffix}
-    </span>
+    </motion.span>
   );
-}
+} 

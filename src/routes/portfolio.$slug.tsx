@@ -142,24 +142,7 @@ function ProjectPage() {
         </div>
       </section>
 
-      {/* Screenshots */}
-      <section className="relative py-20 section-divider">
-        <div className="mx-auto max-w-6xl px-6">
-          <Reveal>
-            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Screenshots</h2>
-          </Reveal>
-          <RevealGroup className="mt-10 grid gap-6 md:grid-cols-2" stagger={0.08}>
-            {[0, 1].map((i) => (
-              <RevealItem key={i} direction="scale">
-                <div className="relative aspect-[16/10] rounded-xl overflow-hidden border border-border shadow-xl">
-                  <div className="absolute inset-0 opacity-90" style={{ background: p.gradient }} />
-                  <div className="absolute inset-0 grid-bg opacity-25" />
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
+
 
       {/* CTA */}
       <section className="relative py-24">

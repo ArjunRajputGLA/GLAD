@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/accordion";
 import { useState } from "react";
 
-export const Route = createFileRoute("/")(  {
+export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "GLAD: Growing Localized Applications Dynamically" },
@@ -98,7 +98,7 @@ function Hero() {
   return (
     <section className="relative pt-36 pb-24 md:pt-44 md:pb-32 overflow-hidden min-h-[90vh] flex items-center">
       <HeroBackground />
-      
+
       {/* Spline 3D Scene - Absolutely positioned to share the root stacking context for mix-blend-screen */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
@@ -106,8 +106,8 @@ function Hero() {
         transition={{ duration: 0.8, delay: 0.5 }}
         className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-1/2 max-w-[800px] h-[600px] mix-blend-screen z-10 pointer-events-auto"
       >
-        <Spline 
-          scene="https://prod.spline.design/WUDd1kLf1Uh-ftTW/scene.splinecode" 
+        <Spline
+          scene="https://prod.spline.design/WUDd1kLf1Uh-ftTW/scene.splinecode"
           className="w-full h-full"
         />
         <div className="absolute bottom-4 right-5 z-20 pointer-events-none border border-white/10 bg-[#1A1A1A] px-5 py-2.5 rounded-full flex items-center gap-2">
@@ -197,7 +197,7 @@ function Hero() {
                 { n: 40, suffix: "+", label: "Products shipped" },
                 { n: 10, suffix: "+", label: "Years combined" },
                 { n: 94, suffix: "%", label: "Client retention" },
-                { n: 3, suffix: "", label: "Senior engineers" },
+                { n: 4, suffix: "", label: "Senior engineers" },
               ].map(({ n, suffix, label }) => (
                 <div key={label}>
                   <div className="text-2xl md:text-3xl font-semibold text-gradient">
