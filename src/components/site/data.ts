@@ -1,5 +1,6 @@
 import fluxorThumbnail from "@/routes/images/projects/Fluxor thumbnail.jpeg";
-import fluxorDescription from "@/routes/images/projects/description page.jpeg";
+import fluxorNewThumbnail from "@/routes/images/projects/fluxor.png";
+import fluxorDescription from "@/routes/images/projects/fluxor description page.jpeg";
 import stockMgmtThumbnail from "@/routes/images/projects/stock management thumbnail.png";
 import inventoryDashboard from "@/routes/images/projects/What_Is_an_Inventory_Management_Dashboard_6db2051190.jpg";
 import inventoryMgmt from "@/routes/images/projects/inventory management.png";
@@ -10,6 +11,12 @@ import aiMockPlatform from "@/routes/images/projects/Top-Must-Have-Features-of-A
 import prayasThumbnail from "@/routes/images/projects/prayas thumbnail.jpeg";
 import prayasAppImage from "@/routes/images/projects/prayas app.jpeg";
 import prayasImage from "@/routes/images/projects/prayas.png";
+import leadEnrichmentThumbnail from "@/routes/images/projects/lead_enrichment thumbnail.png";
+import leadEnrichmentImage1 from "@/routes/images/projects/69e06961fb9d36867dfcedd7_Lead enrichment_2.png";
+import leadEnrichmentImage2 from "@/routes/images/projects/data-enrichment-to-enhance-your-decision-making.jpg";
+import qSafeThumbnail from "@/routes/images/projects/qsafe thumbnail.png";
+import qSafeImage1 from "@/routes/images/projects/q safe.png";
+import qSafeImage2 from "@/routes/images/projects/Top-Secure-File-Transfer-Software-Solutions.webp";
 
 export const services = [
   {
@@ -103,8 +110,8 @@ export const projects = [
       "Smart content analysis",
     ],
     outcome: "Reduced file organization time by over 80% for users with large, unstructured directories.",
-    thumbnail: fluxorThumbnail,
-    images: [fluxorDescription],
+    thumbnail: fluxorNewThumbnail,
+    images: [fluxorDescription, fluxorThumbnail],
   },
   {
     slug: "prayas-app",
@@ -124,8 +131,8 @@ export const projects = [
       "Real-time availability tracking",
     ],
     outcome: "Enabled Prayas NGO to digitize their operations and serve their community more efficiently.",
-    thumbnail: prayasThumbnail,
-    images: [prayasAppImage, prayasImage],
+    thumbnail: prayasImage,
+    images: [prayasAppImage, prayasThumbnail],
   },
   {
     slug: "stock-management",
@@ -187,6 +194,8 @@ export const projects = [
       "Scalable batch processing",
     ],
     outcome: "Scaled outreach capacity from dozens to thousands of personalized leads per day.",
+    thumbnail: leadEnrichmentThumbnail,
+    images: [leadEnrichmentImage1, leadEnrichmentImage2],
   },
   {
     slug: "q-safe",
@@ -206,6 +215,8 @@ export const projects = [
       "Automated file cleanup & expiration",
     ],
     outcome: "Enabled secure, scalable document sharing for organizations handling sensitive data.",
+    thumbnail: qSafeThumbnail,
+    images: [qSafeImage1, qSafeImage2],
   },
 ] as const;
 
