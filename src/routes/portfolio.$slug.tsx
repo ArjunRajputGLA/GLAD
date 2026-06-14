@@ -4,7 +4,8 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
 import { projects } from "@/components/site/data";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/portfolio/$slug")({
   loader: ({ params }) => {
@@ -100,11 +101,14 @@ function ProjectPage() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="mt-14 relative aspect-[16/8] rounded-2xl overflow-hidden border border-border shadow-2xl"
           >
-            <div className="absolute inset-0" style={{ background: p.gradient }} />
-            <div className="absolute inset-0 grid-bg opacity-25" />
-            <div className="absolute inset-0 grid place-items-center">
-              <span className="text-6xl md:text-8xl font-display font-semibold text-white/90 drop-shadow-lg">{p.name}</span>
-            </div>
+            {(p as any).images && (p as any).images.length > 0 ? (
+              <ImageCarousel images={(p as any).images} name={p.name} />
+            ) : (
+              <>
+                <div className="absolute inset-0" style={{ background: p.gradient }} />
+                <div className="absolute inset-0 grid-bg opacity-25" />
+              </>
+            )}
           </motion.div>
         </div>
       </section>
@@ -171,6 +175,47 @@ function Block({ title, children }: { title: string; children: React.ReactNode }
     <div className="surface-card p-8 h-full">
       <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
       <p className="mt-4 text-muted-foreground leading-relaxed">{children}</p>
+    </div>
+  );
+}
+
+function ImageCarousel({ images, name }: { images: readonly string[]; name: string }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return (
+    <div className="absolute inset-0 bg-surface">
+      <AnimatePresence initial={false}>
+        <motion.img
+          key={currentIndex}
+          src={images[currentIndex]}
+          alt={`${name} image ${currentIndex + 1}`}
+          className="absolute inset-0 w-full h-full object-cover"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8 }}
+        />
+      </AnimatePresence>
+      {images.length > 1 && (
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {images.map((_, idx) => (
+            <button
+              key={idx}
+              className={`h-2 rounded-full transition-all duration-300 ${currentIndex === idx ? "bg-white w-6" : "bg-white/40 hover:bg-white/60 w-2"}`}
+              onClick={() => setCurrentIndex(idx)}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

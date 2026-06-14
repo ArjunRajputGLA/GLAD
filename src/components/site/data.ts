@@ -1,3 +1,16 @@
+import fluxorThumbnail from "@/routes/images/projects/Fluxor thumbnail.jpeg";
+import fluxorDescription from "@/routes/images/projects/description page.jpeg";
+import stockMgmtThumbnail from "@/routes/images/projects/stock management thumbnail.png";
+import inventoryDashboard from "@/routes/images/projects/What_Is_an_Inventory_Management_Dashboard_6db2051190.jpg";
+import inventoryMgmt from "@/routes/images/projects/inventory management.png";
+import unifiedInventory from "@/routes/images/projects/unified-inventory-management.webp";
+import aiMockThumbnail from "@/routes/images/projects/AI mock interview.png";
+import aiMockFeatures from "@/routes/images/projects/ai mock interview features.png";
+import aiMockPlatform from "@/routes/images/projects/Top-Must-Have-Features-of-AI-Powered-Interview-Platforms.webp";
+import prayasThumbnail from "@/routes/images/projects/prayas thumbnail.jpeg";
+import prayasAppImage from "@/routes/images/projects/prayas app.jpeg";
+import prayasImage from "@/routes/images/projects/prayas.png";
+
 export const services = [
   {
     slug: "mvp",
@@ -90,6 +103,8 @@ export const projects = [
       "Smart content analysis",
     ],
     outcome: "Reduced file organization time by over 80% for users with large, unstructured directories.",
+    thumbnail: fluxorThumbnail,
+    images: [fluxorDescription],
   },
   {
     slug: "prayas-app",
@@ -109,6 +124,8 @@ export const projects = [
       "Real-time availability tracking",
     ],
     outcome: "Enabled Prayas NGO to digitize their operations and serve their community more efficiently.",
+    thumbnail: prayasThumbnail,
+    images: [prayasAppImage, prayasImage],
   },
   {
     slug: "stock-management",
@@ -128,6 +145,8 @@ export const projects = [
       "Real-time stock updates",
     ],
     outcome: "Unified inventory visibility across all business divisions, eliminating stock discrepancies.",
+    thumbnail: stockMgmtThumbnail,
+    images: [inventoryDashboard, inventoryMgmt, unifiedInventory],
   },
   {
     slug: "ai-mock-interview",
@@ -147,6 +166,8 @@ export const projects = [
       "Semantic similarity matching",
     ],
     outcome: "Enabled candidates to practice with realistic, AI-evaluated interviews anytime, anywhere.",
+    thumbnail: aiMockThumbnail,
+    images: [aiMockFeatures, aiMockPlatform],
   },
   {
     slug: "lead-enrichment",

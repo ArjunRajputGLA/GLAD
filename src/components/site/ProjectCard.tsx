@@ -8,6 +8,8 @@ interface Project {
   short: string;
   tech: readonly string[];
   gradient: string;
+  thumbnail?: string;
+  images?: readonly string[];
 }
 
 export function ProjectCard({ project: p }: { project: Project }) {
@@ -17,19 +19,21 @@ export function ProjectCard({ project: p }: { project: Project }) {
       params={{ slug: p.slug }}
       className="group block surface-card interactive-card shine-on-hover overflow-hidden"
     >
-      {/* Gradient thumbnail */}
+      {/* Gradient or Image thumbnail */}
       <div className="relative aspect-[4/3] overflow-hidden">
-        <div
-          className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110"
-          style={{ background: p.gradient }}
-        />
+        {p.thumbnail ? (
+          <img 
+            src={p.thumbnail} 
+            alt={p.name} 
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+          />
+        ) : (
+          <div
+            className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110"
+            style={{ background: p.gradient }}
+          />
+        )}
         <div className="absolute inset-0 grid-bg opacity-25" />
-        {/* Name overlay */}
-        <div className="absolute inset-0 grid place-items-center">
-          <span className="text-4xl font-display font-semibold text-white/90 drop-shadow-lg tracking-tight">
-            {p.name}
-          </span>
-        </div>
         {/* Bottom gradient fade */}
         <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[var(--surface)] to-transparent opacity-80" />
       </div>
