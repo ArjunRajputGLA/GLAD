@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import logoUrl from "./images/main logo.png";
 import { ThemeProvider } from "../components/theme-provider";
+import { FloatingFooter } from "../components/site/FloatingFooter";
 
 function NotFoundComponent() {
   return (
@@ -132,6 +133,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <FloatingFooter />
     </QueryClientProvider>
   );
 }

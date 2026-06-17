@@ -226,6 +226,54 @@
   box-shadow: 0 0 10px color-mix(in oklab, var(--brand) 50%, transparent);
 }
 
+/* ── Spline 3D scene light-mode enhancement ────────── */
+
+.spline-scene {
+  mix-blend-mode: multiply;
+  filter: invert(1) hue-rotate(180deg) saturate(1.6) contrast(1.1) brightness(1.05);
+  transition: filter 700ms ease, mix-blend-mode 700ms ease;
+}
+
+:is(.dark) .spline-scene {
+  mix-blend-mode: screen;
+  filter: none;
+}
+
+/* ── Floating bottom bar ───────────────────────────── */
+
+.floating-bar {
+  background: color-mix(in oklab, var(--surface) 85%, transparent);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 32px -8px oklch(0 0 0 / 15%),
+              0 0 0 1px oklch(0 0 0 / 3%);
+}
+
+:is(.dark) .floating-bar {
+  background: color-mix(in oklab, var(--surface) 75%, transparent);
+  border: 1px solid color-mix(in oklab, oklch(1 0 0) 8%, transparent);
+  box-shadow: 0 8px 32px -8px oklch(0 0 0 / 40%),
+              0 0 0 1px oklch(1 0 0 / 3%) inset;
+}
+
+.floating-bar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  transition: all 0.2s ease;
+}
+
+.floating-bar-link:hover {
+  color: var(--foreground);
+  background: color-mix(in oklab, var(--surface-2) 80%, transparent);
+}
+
 /* ── Brand utilities ────────────────────────────────── */
 
 @utility text-gradient {

@@ -106,7 +106,7 @@ function Hero() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.5 }}
-        className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-1/2 max-w-[800px] h-[600px] mix-blend-multiply invert hue-rotate-180 dark:mix-blend-screen dark:invert-0 dark:hue-rotate-0 z-10 pointer-events-auto transition-all duration-700"
+        className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-1/2 max-w-[800px] h-[600px] spline-scene z-10 pointer-events-auto transition-all duration-700"
       >
         <Spline
           scene="https://prod.spline.design/WUDd1kLf1Uh-ftTW/scene.splinecode"
