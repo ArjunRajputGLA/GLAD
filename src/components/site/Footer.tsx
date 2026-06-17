@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUp, Linkedin, MessageSquare, MessageCircle, Twitter } from "lucide-react";
-import logo from "../../routes/images/website logo(black background compatible).png";
+import darkLogo from "../../routes/images/website logo(black background compatible).png";
+import lightLogo from "../../routes/images/website logo(white background compatible).png";
 import { useState, useEffect } from "react";
 import { getCalApi } from "@calcom/embed-react";
 import { useTheme } from "../theme-provider";
@@ -43,9 +44,14 @@ export function Footer() {
           <div className="md:col-span-2">
             <div className="flex items-center">
               <img
-                src={logo}
+                src={darkLogo}
                 alt="Website Logo"
-                className="h-12 w-auto object-contain"
+                className="h-12 w-auto object-contain hidden dark:block"
+              />
+              <img
+                src={lightLogo}
+                alt="Website Logo"
+                className="h-12 w-auto object-contain block dark:hidden"
               />
             </div>
             <p className="mt-4 max-w-sm text-sm text-muted-foreground leading-relaxed">
