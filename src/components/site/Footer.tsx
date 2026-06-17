@@ -26,20 +26,7 @@ export function Footer() {
       cal("ui", {
         "hideEventTypeDetails": false,
         "layout": "month_view",
-        "theme": theme === "dark" || (theme === "system" && typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light",
-        "cssVarsPerTheme": {
-          "light": {
-            "cal-brand": "#8b5cf6",
-            "cal-text": "#0a0a0a",
-            "cal-bg": "#fcfcfc"
-          },
-          "dark": {
-            "cal-brand": "#a855f7",
-            "cal-text": "#fafafa",
-            "cal-bg": "#151518",
-            "cal-bg-muted": "#1c1c20"
-          }
-        }
+        "theme": theme === "dark" || (theme === "system" && typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"
       });
     })();
   }, [theme]);
