@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, Check, Mail, Linkedin, MessageCircle, Calendar, Shield } from "lucide-react";
+import { ArrowRight, Check, Mail, Linkedin, MessageCircle, MessageSquare, Calendar, Shield, Twitter } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { HeroBackground } from "@/components/site/Background";
@@ -31,6 +31,30 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    
+    const formData = new FormData(e.currentTarget);
+    
+    try {
+      await fetch("https://formsubmit.co/ajax/support@gladstudio.net", {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json'
+        },
+        body: formData
+      });
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setSubmitted(true); // Fallback to success state
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -59,15 +83,17 @@ function ContactPage() {
 
             {/* Contact items */}
             <div className="mt-10 space-y-4">
-              <ContactItem icon={Mail} label="Email" value="hello@gladstudio.dev" href="mailto:hello@gladstudio.dev" />
-              <ContactItem icon={Linkedin} label="LinkedIn" value="linkedin.com/company/gladstudio" href="#" />
-              <ContactItem icon={MessageCircle} label="WhatsApp" value="+1 (415) 555-0142" href="#" />
-              <ContactItem icon={Calendar} label="Calendar" value="cal.com/gladstudio — 30 min" href="#" />
+              <ContactItem icon={Mail} label="Email" value="hello@gladstudio.net" href="mailto:hello@gladstudio.net" />
+              <ContactItem icon={Twitter} label="X (Twitter)" value="@_GLAD_Studio" href="https://x.com/_GLAD_Studio" target="_blank" />
+              <ContactItem icon={Linkedin} label="LinkedIn" value="GLAD Studio" href="https://www.linkedin.com/company/glad-studio-2k26" />
+              <ContactItem icon={MessageSquare} label="Discord" value="Join our server" href="https://discord.gg/VK6EVX6k" />
+              <ContactItem icon={MessageCircle} label="Reddit" value="r/GLADStudio" href="https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK" />
+              <ContactItem icon={Calendar} label="Calendar" value="Schedule a meeting" href="https://calendly.com/imstorm23203" target="_blank" />
             </div>
 
             {/* Trust badges */}
             <div className="mt-10 flex flex-wrap gap-3">
-              {["NDA on request", "Reply < 24h", "No obligation"].map((badge) => (
+              {["Free consultation", "Reply < 24h", "No obligation"].map((badge) => (
                 <div key={badge} className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/50 backdrop-blur-sm px-3.5 py-1.5 text-xs text-muted-foreground">
                   <Shield className="size-3" />
                   {badge}
@@ -98,10 +124,7 @@ function ContactPage() {
               </motion.div>
             ) : (
               <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setSubmitted(true);
-                }}
+                onSubmit={handleSubmit}
                 className="glass-card p-8 space-y-5"
               >
                 <div>
@@ -121,9 +144,14 @@ function ContactPage() {
                 />
                 <button
                   type="submit"
-                  className="w-full btn-primary justify-center mt-2"
+                  disabled={loading}
+                  className="w-full btn-primary justify-center mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send enquiry <ArrowRight className="size-4" />
+                  {loading ? "Sending..." : (
+                    <>
+                      Send enquiry <ArrowRight className="size-4" />
+                    </>
+                  )}
                 </button>
               </form>
             )}
@@ -141,14 +169,16 @@ function ContactItem({
   label,
   value,
   href,
+  target,
 }: {
   icon: typeof Mail;
   label: string;
   value: string;
   href: string;
+  target?: string;
 }) {
   return (
-    <a href={href} className="flex items-center gap-4 group">
+    <a href={href} target={target} className="flex items-center gap-4 group">
       <div className="size-11 rounded-xl surface-card grid place-items-center group-hover:border-ring/40 transition-all duration-300 group-hover:-translate-y-0.5">
         <Icon className="size-4" />
       </div>

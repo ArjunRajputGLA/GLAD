@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import logoUrl from "./images/main logo.png";
+import { ThemeProvider } from "../components/theme-provider";
 
 function NotFoundComponent() {
   return (
@@ -115,7 +116,9 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        {children}
+        <ThemeProvider defaultTheme="system" storageKey="glad-ui-theme">
+          {children}
+        </ThemeProvider>
         <Scripts />
       </body>
     </html>

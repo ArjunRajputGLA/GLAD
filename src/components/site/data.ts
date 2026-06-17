@@ -24,7 +24,7 @@ export const services = [
     title: "MVP Development",
     short: "Ship a credible v1 in weeks, not quarters.",
     description:
-      "Helping startups launch products quickly and efficiently — from clickable prototype to production-ready MVP.",
+      "Helping startups launch products quickly and efficiently — from clickable prototype to production-ready MVP. We deliver a high-fidelity, clickable interactive design prototype in Week 2, and deploy your first working staging build in Week 3.",
     benefits: [
       "Validate ideas with real users fast",
       "Investor-ready demos and pitch assets",
@@ -38,7 +38,7 @@ export const services = [
     title: "Web Application Development",
     short: "Custom dashboards, SaaS, CRM and internal platforms.",
     description:
-      "We design and build robust web applications — from analytics dashboards to multi-tenant SaaS — with clean architecture and modern UX.",
+      "We design and build robust web applications — from analytics dashboards to multi-tenant SaaS — with clean architecture and modern UX. Type-safe, secure platforms structured into predictable fortnightly sprints.",
     benefits: [
       "Type-safe, scalable frontends",
       "Auth, billing & permissions handled",
@@ -52,7 +52,7 @@ export const services = [
     title: "Mobile App Development",
     short: "Cross-platform apps for Android and iOS.",
     description:
-      "Single codebase, native feel. We build Flutter applications that ship to both stores with polished UX and offline-first capability.",
+      "Single codebase, native feel. We build Flutter applications that ship to both stores with polished UX and offline-first capability. Cross-platform iOS & Android deployment backed by automated CI/CD pipelines.",
     benefits: [
       "One team, two platforms",
       "Native performance and gestures",
@@ -66,7 +66,7 @@ export const services = [
     title: "AI Solutions",
     short: "Chatbots, agents, RAG and intelligent workflows.",
     description:
-      "We integrate LLMs into your product where they create real leverage — support automation, smart search, document workflows and assistants.",
+      "We integrate LLMs into your product where they create real leverage — support automation, smart search, document workflows and assistants. Fast deployment of context-aware models with strict evaluation guardrails and cost-routing.",
     benefits: [
       "RAG over your own data",
       "Cost-aware model routing",
@@ -80,7 +80,7 @@ export const services = [
     title: "Business Automation",
     short: "Cut the busywork your team shouldn't be doing.",
     description:
-      "Custom internal tools and automations that connect the systems you already use and remove manual work from your operations.",
+      "Custom internal tools and automations that connect the systems you already use and remove manual work from your operations. Direct systems integration to eliminate administrative overhead.",
     benefits: [
       "Save dozens of hours per week",
       "Fewer human errors, cleaner data",
@@ -96,8 +96,8 @@ export const projects = [
     slug: "fluxor",
     name: "Fluxor",
     category: "Desktop Application",
-    short: "AI-powered file management system that intelligently renames and classifies files into folders.",
-    tech: ["Python", "AI/ML", "Windows"],
+    short: "Automated Document Orchestration & Asset Classification Engine",
+    tech: ["Python", "ML models"],
     gradient: "linear-gradient(135deg, #7c3aed, #2563eb)",
     challenge:
       "Users were spending hours manually organizing, renaming, and sorting files across cluttered directories — a tedious, error-prone process.",
@@ -117,8 +117,8 @@ export const projects = [
     slug: "prayas-app",
     name: "Prayas App",
     category: "Mobile App",
-    short: "Health equipment lending and blood donation support app built for Prayas NGO.",
-    tech: ["React Native", "Android"],
+    short: "Decentralized Medical Inventory Control & Resource Logistics Platform",
+    tech: ["React Native"],
     gradient: "linear-gradient(135deg, #db2777, #f59e0b)",
     challenge:
       "Prayas NGO needed a streamlined way to manage health equipment lending and coordinate blood donation drives across their community network.",
@@ -138,8 +138,8 @@ export const projects = [
     slug: "stock-management",
     name: "Stock Management",
     category: "Full Stack Platform",
-    short: "End-to-end stock management system for multi-division businesses with admin panel.",
-    tech: ["React Native", "Android", "React.js", "Node.js"],
+    short: "Multi-Tenant Enterprise Inventory & Supply Chain Orchestration Suite",
+    tech: ["React Native", "React.js", "Node.js"],
     gradient: "linear-gradient(135deg, #0ea5e9, #6366f1)",
     challenge:
       "A business with multiple sub-divisions was struggling to track inventory across departments using disconnected spreadsheets and manual processes.",
@@ -159,8 +159,8 @@ export const projects = [
     slug: "ai-mock-interview",
     name: "AI Mock Interview",
     category: "AI Product",
-    short: "AI-powered platform simulating real technical and HR interviews with intelligent feedback.",
-    tech: ["React.js", "FastAPI", "Python", "HuggingFace", "PyTorch", "MongoDB", "Docker"],
+    short: "Low-Latency Conversational AI Technical Assessment Engine",
+    tech: ["React.js", "FastAPI", "HuggingFace", "MongoDB"],
     gradient: "linear-gradient(135deg, #7c3aed, #db2777)",
     challenge:
       "Job seekers lacked access to realistic, on-demand interview practice with meaningful feedback beyond generic question banks.",
@@ -180,8 +180,8 @@ export const projects = [
     slug: "lead-enrichment",
     name: "Lead Enrichment",
     category: "Business Automation",
-    short: "Automated platform for collecting, validating, and enriching company and lead data at scale.",
-    tech: ["Python", "n8n", "PostgreSQL", "SQLAlchemy", "BeautifulSoup", "OpenAI API", "Docker"],
+    short: "High-Throughput Lead Sourcing & Automated Data Cleansing Pipeline",
+    tech: ["Python", "n8n", "PostgreSQL"],
     gradient: "linear-gradient(135deg, #10b981, #2563eb)",
     challenge:
       "Sales teams were manually researching leads, validating websites, and crafting outreach emails — a process that couldn't scale beyond a handful of prospects per day.",
@@ -201,8 +201,8 @@ export const projects = [
     slug: "q-safe",
     name: "Q-SAFE",
     category: "Security Platform",
-    short: "Secure file-sharing platform with encrypted transfers, QR codes, and role-based access control.",
-    tech: ["React.js", "Django", "DRF", "PostgreSQL", "Redis", "Celery", "Docker", "AWS EC2"],
+    short: "Zero-Knowledge Encrypted Secure File Transmission Portal",
+    tech: ["React.js", "Django REST Framework", "PostgreSQL", "Docker"],
     gradient: "linear-gradient(135deg, #f59e0b, #7c3aed)",
     challenge:
       "Organizations needed a secure, self-hosted way to share sensitive documents without relying on third-party services that lacked fine-grained access controls.",
@@ -244,7 +244,7 @@ export const testimonials = [
 export const faqs = [
   {
     q: "How much does a typical project cost?",
-    a: "MVPs typically range from $15k to $45k. Larger web platforms and mobile apps usually fall between $40k and $150k. We always scope and price in writing before any work starts.",
+    a: "We build on a transparent, fixed-scope, fixed-price milestone basis. Because we do not work with open-ended hourly billing, you know your exact investment before we write the first line of code. Our engagements typically fall into three clear brackets: custom MVP developments launch between $10k–$20k, comprehensive multi-tenant SaaS platforms range from $25k–$50k, and targeted AI or business automation pipelines are delivered between $5k–$15k. Every proposal includes a detailed visual feature roadmap and a guaranteed delivery date.",
   },
   {
     q: "How fast can you start?",
@@ -257,9 +257,5 @@ export const faqs = [
   {
     q: "What happens after launch?",
     a: "We offer ongoing support packages for bug fixes, performance, and new features. Many clients keep us on as a fractional product team.",
-  },
-  {
-    q: "Who owns the code?",
-    a: "You do. Full IP transfer is included by default — code, designs, and infrastructure all belong to you.",
   },
 ];

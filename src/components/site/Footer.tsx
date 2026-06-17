@@ -1,14 +1,26 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUp, Github, Linkedin, Twitter } from "lucide-react";
+import { ArrowUp, Linkedin, MessageSquare, MessageCircle, Twitter } from "lucide-react";
 import logo from "../../routes/images/website logo(black background compatible).png";
+import { useState, useEffect } from "react";
+import { PopupModal } from "react-calendly";
+import { useTheme } from "../theme-provider";
 
 const socials = [
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Github, href: "#", label: "GitHub" },
+  { icon: Twitter, href: "https://x.com/_GLAD_Studio", label: "X (Twitter)" },
+  { icon: Linkedin, href: "https://www.linkedin.com/company/glad-studio-2k26", label: "LinkedIn" },
+  { icon: MessageSquare, href: "https://discord.gg/VK6EVX6k", label: "Discord" },
+  { icon: MessageCircle, href: "https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK", label: "Reddit" },
 ];
 
 export function Footer() {
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -16,7 +28,7 @@ export function Footer() {
   return (
     <footer className="relative border-t border-border mt-32 noise-bg">
       <div className="relative z-10 mx-auto max-w-7xl px-6 pt-16 pb-8">
-        <div className="grid gap-12 md:grid-cols-4">
+        <div className="grid gap-12 md:grid-cols-5">
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center">
@@ -57,13 +69,15 @@ export function Footer() {
           </div>
 
           {/* Contact links */}
-          <div>
+          <div className="md:col-span-2">
             <h4 className="text-sm font-semibold mb-4">Contact</h4>
-            <ul className="space-y-2.5 text-sm text-muted-foreground">
-              <li><a href="mailto:hello@gladstudio.dev" className="hover:text-foreground transition-colors">hello@gladstudio.dev</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">LinkedIn</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">WhatsApp</a></li>
-              <li><Link to="/contact" className="hover:text-foreground transition-colors">Book a call</Link></li>
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm text-muted-foreground">
+              <li><a href="mailto:hello@gladstudio.net" className="hover:text-foreground transition-colors">hello@gladstudio.net</a></li>
+              <li><a href="https://x.com/_GLAD_Studio" className="hover:text-foreground transition-colors" target="_blank" rel="noreferrer">X (Twitter)</a></li>
+              <li><a href="https://www.linkedin.com/company/glad-studio-2k26" className="hover:text-foreground transition-colors" target="_blank" rel="noreferrer">LinkedIn</a></li>
+              <li><a href="https://discord.gg/VK6EVX6k" className="hover:text-foreground transition-colors" target="_blank" rel="noreferrer">Discord</a></li>
+              <li><a href="https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK" className="hover:text-foreground transition-colors" target="_blank" rel="noreferrer">Reddit</a></li>
+              <li><button onClick={() => setIsCalendlyOpen(true)} className="hover:text-foreground transition-colors cursor-pointer text-left">Book a call</button></li>
             </ul>
           </div>
         </div>
@@ -80,6 +94,20 @@ export function Footer() {
           </button>
         </div>
       </div>
+      {isClient && (
+        <PopupModal
+          url="https://calendly.com/imstorm23203"
+          onModalClose={() => setIsCalendlyOpen(false)}
+          open={isCalendlyOpen}
+          rootElement={document.getElementById("root") || document.body}
+          pageSettings={{
+            backgroundColor: theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? '0a0a0a' : 'ffffff',
+            primaryColor: '0069ff',
+            textColor: theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? 'ffffff' : '0a0a0a',
+            hideLandingPageDetails: false
+          }}
+        />
+      )}
     </footer>
   );
 }

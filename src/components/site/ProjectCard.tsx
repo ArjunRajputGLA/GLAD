@@ -12,15 +12,15 @@ interface Project {
   images?: readonly string[];
 }
 
-export function ProjectCard({ project: p }: { project: Project }) {
+export function ProjectCard({ project: p, className }: { project: Project; className?: string }) {
   return (
     <Link
       to="/portfolio/$slug"
       params={{ slug: p.slug }}
-      className="group block surface-card interactive-card shine-on-hover overflow-hidden"
+      className={`group surface-card interactive-card shine-on-hover overflow-hidden flex flex-col ${className || ""}`}
     >
       {/* Gradient or Image thumbnail */}
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div className="relative flex-1 min-h-[240px] overflow-hidden">
         {p.thumbnail ? (
           <img 
             src={p.thumbnail} 

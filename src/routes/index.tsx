@@ -31,7 +31,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { PopupModal } from "react-calendly";
+import { useTheme } from "@/components/theme-provider";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -104,7 +106,7 @@ function Hero() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.5 }}
-        className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-1/2 max-w-[800px] h-[600px] mix-blend-screen z-10 pointer-events-auto"
+        className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-1/2 max-w-[800px] h-[600px] mix-blend-multiply invert hue-rotate-180 dark:mix-blend-screen dark:invert-0 dark:hue-rotate-0 z-10 pointer-events-auto transition-all duration-700"
       >
         <Spline
           scene="https://prod.spline.design/WUDd1kLf1Uh-ftTW/scene.splinecode"
@@ -171,41 +173,13 @@ function Hero() {
               transition={{ duration: 0.6, delay: 0.45 }}
               className="mt-9 flex flex-wrap gap-4"
             >
-              <Link
-                to="/contact"
-                className="group btn-primary animate-pulse-glow"
-              >
-                Book free consultation
-                <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform duration-300" />
-              </Link>
+              <HeroCTA />
               <Link
                 to="/portfolio"
                 className="btn-secondary"
               >
                 View our work
               </Link>
-            </motion.div>
-
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.55 }}
-              className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl"
-            >
-              {[
-                { n: 40, suffix: "+", label: "Products shipped" },
-                { n: 10, suffix: "+", label: "Years combined" },
-                { n: 94, suffix: "%", label: "Client retention" },
-                { n: 4, suffix: "", label: "Senior engineers" },
-              ].map(({ n, suffix, label }) => (
-                <div key={label}>
-                  <div className="text-2xl md:text-3xl font-semibold text-gradient">
-                    <AnimatedCounter target={n} suffix={suffix} duration={2} />
-                  </div>
-                  <div className="mt-1.5 text-xs text-muted-foreground tracking-wide">{label}</div>
-                </div>
-              ))}
             </motion.div>
           </div>
 
@@ -214,6 +188,42 @@ function Hero() {
         </div>
       </div>
     </section>
+  );
+}
+
+function HeroCTA() {
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  return (
+    <>
+      <button
+        onClick={() => setIsCalendlyOpen(true)}
+        className="group btn-primary animate-pulse-glow"
+      >
+        Book a Discovery Call
+        <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform duration-300" />
+      </button>
+      {isClient && (
+        <PopupModal
+          url="https://calendly.com/imstorm23203"
+          onModalClose={() => setIsCalendlyOpen(false)}
+          open={isCalendlyOpen}
+          rootElement={document.getElementById("root") || document.body}
+          pageSettings={{
+            backgroundColor: theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? '0a0a0a' : 'ffffff',
+            primaryColor: '0069ff',
+            textColor: theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? 'ffffff' : '0a0a0a',
+            hideLandingPageDetails: false
+          }}
+        />
+      )}
+    </>
   );
 }
 
@@ -362,12 +372,22 @@ function Featured() {
             </Link>
           </div>
         </Reveal>
-        <RevealGroup className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.08}>
-          {projects.slice(0, 3).map((p) => (
-            <RevealItem key={p.slug}>
-              <ProjectCard project={p} />
-            </RevealItem>
-          ))}
+        <RevealGroup className="mt-14 grid gap-6 grid-cols-1 md:grid-cols-12" stagger={0.08}>
+          {projects.map((p, i) => {
+            const spanClasses = [
+              "md:col-span-8",
+              "md:col-span-4",
+              "md:col-span-4",
+              "md:col-span-8",
+              "md:col-span-6",
+              "md:col-span-6",
+            ];
+            return (
+              <RevealItem key={p.slug} className={`w-full ${spanClasses[i]}`}>
+                <ProjectCard project={p} className="h-full !rounded-[20px]" />
+              </RevealItem>
+            );
+          })}
         </RevealGroup>
       </div>
     </section>
@@ -471,7 +491,7 @@ function FinalCTA() {
                   {[
                     "30-minute discovery call",
                     "Fixed-scope proposal in 48 hours",
-                    "NDA available on request",
+                    "Direct access to senior engineers",
                   ].map((item) => (
                     <div key={item} className="flex items-center gap-2.5">
                       <div className="size-5 rounded-full bg-brand-gradient grid place-items-center">

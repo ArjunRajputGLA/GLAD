@@ -1,9 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ScrollProgress } from "./ScrollProgress";
-import logo from "../../routes/images/website logo(black background compatible).png";
+import darkLogo from "../../routes/images/website logo(black background compatible).png";
+import lightLogo from "../../routes/images/website logo(white background compatible).png";
+import { useTheme } from "../theme-provider";
+import { PopupModal } from "react-calendly";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -11,13 +14,58 @@ const nav = [
   { to: "/portfolio", label: "Portfolio" },
   { to: "/process", label: "Process" },
   { to: "/about", label: "About" },
+  { to: "/contact", label: "Contact" },
 ] as const;
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  const handleThemeToggle = (e: React.MouseEvent) => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+
+    if (!document.startViewTransition) {
+      setTheme(newTheme);
+      return;
+    }
+
+    const x = e.clientX;
+    const y = e.clientY;
+
+    const transition = document.startViewTransition(() => {
+      const root = window.document.documentElement;
+      root.classList.remove("light", "dark");
+      root.classList.add(newTheme);
+      setTheme(newTheme);
+    });
+
+    transition.ready.then(() => {
+      const endRadius = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y)
+      );
+
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${endRadius}px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration: 600,
+          easing: "ease-in-out",
+          pseudoElement: "::view-transition-new(root)",
+        }
+      );
+    });
+  };
 
   useEffect(() => {
+    setIsClient(true);
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -38,9 +86,14 @@ export function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center group">
             <img
-              src={logo}
+              src={darkLogo}
               alt="Website Logo"
-              className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105 hidden dark:block"
+            />
+            <img
+              src={lightLogo}
+              alt="Website Logo"
+              className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105 block dark:hidden"
             />
           </Link>
 
@@ -59,14 +112,21 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
+          {/* Desktop CTA & Theme Toggle */}
           <div className="hidden md:flex items-center gap-3">
-            <Link
-              to="/contact"
+            <button
+              onClick={handleThemeToggle}
+              className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-surface/60 transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
+            </button>
+            <button
+              onClick={() => setIsCalendlyOpen(true)}
               className="btn-primary text-sm !py-2 !px-5"
             >
-              Book a call
-            </Link>
+              Book a Discovery Call
+            </button>
           </div>
 
           {/* Mobile toggle */}
@@ -111,19 +171,36 @@ export function Header() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.35 }}
                 >
-                  <Link
-                    to="/contact"
-                    onClick={() => setOpen(false)}
-                    className="mt-3 btn-primary justify-center text-sm"
+                  <button
+                    onClick={() => {
+                      setOpen(false);
+                      setIsCalendlyOpen(true);
+                    }}
+                    className="w-full mt-3 btn-primary justify-center text-sm"
                   >
-                    Book a call
-                  </Link>
+                    Book a Discovery Call
+                  </button>
                 </motion.div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </header>
+
+      {isClient && (
+        <PopupModal
+          url="https://calendly.com/imstorm23203"
+          onModalClose={() => setIsCalendlyOpen(false)}
+          open={isCalendlyOpen}
+          rootElement={document.getElementById("root") || document.body}
+          pageSettings={{
+            backgroundColor: theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? '0a0a0a' : 'ffffff',
+            primaryColor: '0069ff',
+            textColor: theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? 'ffffff' : '0a0a0a',
+            hideLandingPageDetails: false
+          }}
+        />
+      )}
     </>
   );
 }
