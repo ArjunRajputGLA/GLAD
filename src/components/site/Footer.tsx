@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUp, Linkedin, MessageSquare, MessageCircle, Twitter } from "lucide-react";
+import { ArrowUp, Linkedin, Twitter } from "lucide-react";
 import darkLogo from "../../routes/images/website logo(black background compatible).png";
 import lightLogo from "../../routes/images/website logo(white background compatible).png";
+import discordLogo from "../../routes/images/discord-black-logo.png";
+import redditLogo from "../../routes/images/reddit-logo.png";
 import { useState, useEffect } from "react";
 import { getCalApi } from "@calcom/embed-react";
 import { useTheme } from "../theme-provider";
@@ -9,8 +11,8 @@ import { useTheme } from "../theme-provider";
 const socials = [
   { icon: Twitter, href: "https://x.com/_GLAD_Studio", label: "X (Twitter)" },
   { icon: Linkedin, href: "https://www.linkedin.com/company/glad-studio-2k26", label: "LinkedIn" },
-  { icon: MessageSquare, href: "https://discord.gg/VK6EVX6k", label: "Discord" },
-  { icon: MessageCircle, href: "https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK", label: "Reddit" },
+  { icon: ({ className }: { className?: string }) => <img src={discordLogo} alt="Discord" className={`${className} scale-125 dark:invert`} />, href: "https://discord.gg/VK6EVX6k", label: "Discord" },
+  { icon: ({ className }: { className?: string }) => <img src={redditLogo} alt="Reddit" className={`${className} scale-125 dark:invert`} />, href: "https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK", label: "Reddit" },
 ];
 
 export function Footer() {
@@ -64,6 +66,8 @@ export function Footer() {
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="size-9 rounded-lg border border-border grid place-items-center text-muted-foreground hover:text-foreground hover:border-ring/40 transition-all duration-300 hover:-translate-y-0.5"
                 >
@@ -89,10 +93,10 @@ export function Footer() {
             <h4 className="text-sm font-semibold mb-4">Contact</h4>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm text-muted-foreground">
               <li><a href="mailto:hello@gladstudio.net" className="hover:text-foreground transition-colors">hello@gladstudio.net</a></li>
-              <li><a href="https://x.com/_GLAD_Studio" className="hover:text-foreground transition-colors" target="_blank" rel="noreferrer">X (Twitter)</a></li>
-              <li><a href="https://www.linkedin.com/company/glad-studio-2k26" className="hover:text-foreground transition-colors" target="_blank" rel="noreferrer">LinkedIn</a></li>
-              <li><a href="https://discord.gg/VK6EVX6k" className="hover:text-foreground transition-colors" target="_blank" rel="noreferrer">Discord</a></li>
-              <li><a href="https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK" className="hover:text-foreground transition-colors" target="_blank" rel="noreferrer">Reddit</a></li>
+              <li><a href="https://x.com/_GLAD_Studio" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
+              <li><a href="https://www.linkedin.com/company/glad-studio-2k26" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+              <li><a href="https://discord.gg/VK6EVX6k" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">Discord</a></li>
+              <li><a href="https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">Reddit</a></li>
               <li><button data-cal-link="arjun-rajput-2mdsis" data-cal-config={JSON.stringify({layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'})} className="hover:text-foreground transition-colors cursor-pointer text-left">Book a call</button></li>
             </ul>
           </div>
