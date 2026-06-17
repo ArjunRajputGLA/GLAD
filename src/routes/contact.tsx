@@ -55,7 +55,7 @@ function ContactPage() {
     const formData = new FormData(e.currentTarget);
     
     try {
-      await fetch("https://formsubmit.co/ajax/support@gladstudio.net", {
+      await fetch("https://formsubmit.co/ajax/hello@gladstudio.net", {
         method: "POST",
         headers: {
             'Accept': 'application/json'

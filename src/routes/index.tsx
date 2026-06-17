@@ -520,6 +520,8 @@ function ContactForm({
   submitted: boolean;
   setSubmitted: (v: boolean) => void;
 }) {
+  const [loading, setLoading] = useState(false);
+
   if (submitted) {
     return (
       <motion.div
@@ -537,12 +539,34 @@ function ContactForm({
       </motion.div>
     );
   }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    
+    const formData = new FormData(e.currentTarget);
+    
+    try {
+      await fetch("https://formsubmit.co/ajax/hello@gladstudio.net", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(Object.fromEntries(formData))
+      });
+      setSubmitted(true);
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSubmitted(true);
-      }}
+      onSubmit={handleSubmit}
       className="glass-card p-7 space-y-4"
     >
       <div className="grid gap-4 md:grid-cols-2">
@@ -564,9 +588,10 @@ function ContactForm({
       />
       <button
         type="submit"
-        className="w-full btn-primary justify-center mt-2"
+        disabled={loading}
+        className="w-full btn-primary justify-center mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Send & book call <ArrowRight className="size-4" />
+        {loading ? "Sending..." : "Send & book call"} <ArrowRight className="size-4" />
       </button>
     </form>
   );
