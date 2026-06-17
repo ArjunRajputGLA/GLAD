@@ -45,26 +45,26 @@
   --radius: 0.875rem;
 
   /* Light theme tokens (Enhanced) */
-  --background: oklch(0.99 0 0);
-  --foreground: oklch(0.10 0.01 270);
+  --background: oklch(0.97 0.01 75); /* Warm off-white/beige */
+  --foreground: oklch(0.25 0 0); /* Soft dark-charcoal */
 
-  --surface: oklch(0.97 0.005 270);
-  --surface-2: oklch(0.94 0.01 270);
+  --surface: oklch(0.95 0.01 75);
+  --surface-2: oklch(0.92 0.01 75);
 
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.10 0.01 270);
+  --card: oklch(0.99 0.005 75);
+  --card-foreground: oklch(0.25 0 0);
 
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.10 0.01 270);
+  --popover: oklch(0.99 0.005 75);
+  --popover-foreground: oklch(0.25 0 0);
 
-  --primary: oklch(0.10 0.01 270);
-  --primary-foreground: oklch(0.99 0 0);
+  --primary: oklch(0.25 0 0);
+  --primary-foreground: oklch(0.97 0.01 75);
 
-  --secondary: oklch(0.95 0.01 270);
-  --secondary-foreground: oklch(0.10 0.01 270);
+  --secondary: oklch(0.92 0.01 75);
+  --secondary-foreground: oklch(0.25 0 0);
 
-  --muted: oklch(0.96 0.01 270);
-  --muted-foreground: oklch(0.40 0.01 270);
+  --muted: oklch(0.94 0.01 75);
+  --muted-foreground: oklch(0.45 0 0);
 
   --accent: oklch(0.92 0.02 280);
   --accent-foreground: oklch(0.10 0.01 270);
@@ -113,26 +113,26 @@
 
 .dark {
   /* Dark theme tokens (Enhanced) */
-  --background: oklch(0.06 0.01 270); /* Deep sleek black */
-  --foreground: oklch(0.98 0.005 270);
+  --background: oklch(0.12 0.01 270); /* Energy-efficient dark charcoal */
+  --foreground: oklch(0.95 0 0); /* Soft white */
 
-  --surface: oklch(0.10 0.01 270);
-  --surface-2: oklch(0.13 0.015 275);
+  --surface: oklch(0.15 0.01 270);
+  --surface-2: oklch(0.18 0.015 275);
 
-  --card: oklch(0.08 0.01 270);
-  --card-foreground: oklch(0.98 0.005 270);
+  --card: oklch(0.14 0.01 270);
+  --card-foreground: oklch(0.95 0 0);
 
-  --popover: oklch(0.08 0.01 270);
-  --popover-foreground: oklch(0.98 0.005 270);
+  --popover: oklch(0.14 0.01 270);
+  --popover-foreground: oklch(0.95 0 0);
 
-  --primary: oklch(0.98 0.005 270);
-  --primary-foreground: oklch(0.06 0.01 270);
+  --primary: oklch(0.95 0 0);
+  --primary-foreground: oklch(0.12 0.01 270);
 
-  --secondary: oklch(0.14 0.02 275);
-  --secondary-foreground: oklch(0.98 0.005 270);
+  --secondary: oklch(0.18 0.02 275);
+  --secondary-foreground: oklch(0.95 0 0);
 
-  --muted: oklch(0.14 0.01 270);
-  --muted-foreground: oklch(0.65 0.015 270);
+  --muted: oklch(0.18 0.01 270);
+  --muted-foreground: oklch(0.65 0 0);
 
   --accent: oklch(0.18 0.03 280);
   --accent-foreground: oklch(0.98 0.005 270);
@@ -164,11 +164,13 @@
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: "ss01", "cv11";
     overflow-x: hidden;
+    transition: background-color 300ms ease, color 300ms ease;
   }
 
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     letter-spacing: -0.025em;
+    transition: color 300ms ease;
   }
 
   ::selection {
@@ -222,7 +224,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
-  transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s ease, background-color 300ms ease, color 300ms ease;
 }
 
 @utility surface-card-hover {
@@ -240,6 +242,7 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card),
               0 0 0 1px color-mix(in oklab, oklch(1 0 0) 3%, transparent) inset;
+  transition: background-color 300ms ease, border-color 300ms ease;
 }
 
 /* ── Background utilities ───────────────────────────── */
@@ -479,9 +482,7 @@
 ::view-transition-new(root) {
   z-index: 2;
 }
-.dark::view-transition-old(root) {
-  z-index: 2;
-}
-.dark::view-transition-new(root) {
-  z-index: 1;
+
+.view-transitioning * {
+  transition: none !important;
 }

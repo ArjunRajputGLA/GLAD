@@ -35,6 +35,8 @@ export function Header() {
     const x = e.clientX;
     const y = e.clientY;
 
+    document.documentElement.classList.add("view-transitioning");
+
     const transition = document.startViewTransition(() => {
       const root = window.document.documentElement;
       root.classList.remove("light", "dark");
@@ -61,6 +63,10 @@ export function Header() {
           pseudoElement: "::view-transition-new(root)",
         }
       );
+    });
+
+    transition.finished.then(() => {
+      document.documentElement.classList.remove("view-transitioning");
     });
   };
 
@@ -166,6 +172,20 @@ export function Header() {
                     </Link>
                   </motion.div>
                 ))}
+                <motion.div
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <button
+                    onClick={handleThemeToggle}
+                    className="w-full flex items-center justify-between px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-surface/60 transition-colors"
+                    aria-label="Toggle theme"
+                  >
+                    <span>Theme</span>
+                    {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
+                  </button>
+                </motion.div>
                 <motion.div
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
