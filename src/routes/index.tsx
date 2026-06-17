@@ -32,7 +32,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useState, useEffect } from "react";
-import { PopupModal } from "react-calendly";
+import { getCalApi } from "@calcom/embed-react";
 import { useTheme } from "@/components/theme-provider";
 
 export const Route = createFileRoute("/")({
@@ -192,7 +192,6 @@ function Hero() {
 }
 
 function HeroCTA() {
-  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const { theme } = useTheme();
 
@@ -200,29 +199,41 @@ function HeroCTA() {
     setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi();
+      cal("ui", {
+        "hideEventTypeDetails": false,
+        "layout": "month_view",
+        "theme": theme === "dark" || (theme === "system" && typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light",
+        "cssVarsPerTheme": {
+          "light": {
+            "cal-brand": "#8b5cf6",
+            "cal-text": "#0a0a0a",
+            "cal-bg": "#fcfcfc"
+          },
+          "dark": {
+            "cal-brand": "#a855f7",
+            "cal-text": "#fafafa",
+            "cal-bg": "#151518",
+            "cal-bg-muted": "#1c1c20"
+          }
+        }
+      });
+    })();
+  }, [theme]);
+
   return (
     <>
       <button
-        onClick={() => setIsCalendlyOpen(true)}
+        data-cal-link="arjun-rajput-2mdsis"
+        data-cal-config={JSON.stringify({layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'})}
         className="group btn-primary animate-pulse-glow"
       >
-        Book a Discovery Call
+        Book a Call
         <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform duration-300" />
       </button>
-      {isClient && (
-        <PopupModal
-          url="https://calendly.com/imstorm23203"
-          onModalClose={() => setIsCalendlyOpen(false)}
-          open={isCalendlyOpen}
-          rootElement={document.getElementById("root") || document.body}
-          pageSettings={{
-            backgroundColor: theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? '0a0a0a' : 'ffffff',
-            primaryColor: '0069ff',
-            textColor: theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? 'ffffff' : '0a0a0a',
-            hideLandingPageDetails: false
-          }}
-        />
-      )}
+
     </>
   );
 }

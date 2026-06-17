@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUp, Linkedin, MessageSquare, MessageCircle, Twitter } from "lucide-react";
 import logo from "../../routes/images/website logo(black background compatible).png";
 import { useState, useEffect } from "react";
-import { PopupModal } from "react-calendly";
+import { getCalApi } from "@calcom/embed-react";
 import { useTheme } from "../theme-provider";
 
 const socials = [
@@ -13,13 +13,36 @@ const socials = [
 ];
 
 export function Footer() {
-  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const { theme } = useTheme();
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi();
+      cal("ui", {
+        "hideEventTypeDetails": false,
+        "layout": "month_view",
+        "theme": theme === "dark" || (theme === "system" && typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light",
+        "cssVarsPerTheme": {
+          "light": {
+            "cal-brand": "#8b5cf6",
+            "cal-text": "#0a0a0a",
+            "cal-bg": "#fcfcfc"
+          },
+          "dark": {
+            "cal-brand": "#a855f7",
+            "cal-text": "#fafafa",
+            "cal-bg": "#151518",
+            "cal-bg-muted": "#1c1c20"
+          }
+        }
+      });
+    })();
+  }, [theme]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -77,7 +100,7 @@ export function Footer() {
               <li><a href="https://www.linkedin.com/company/glad-studio-2k26" className="hover:text-foreground transition-colors" target="_blank" rel="noreferrer">LinkedIn</a></li>
               <li><a href="https://discord.gg/VK6EVX6k" className="hover:text-foreground transition-colors" target="_blank" rel="noreferrer">Discord</a></li>
               <li><a href="https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK" className="hover:text-foreground transition-colors" target="_blank" rel="noreferrer">Reddit</a></li>
-              <li><button onClick={() => setIsCalendlyOpen(true)} className="hover:text-foreground transition-colors cursor-pointer text-left">Book a call</button></li>
+              <li><button data-cal-link="arjun-rajput-2mdsis" data-cal-config={JSON.stringify({layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'})} className="hover:text-foreground transition-colors cursor-pointer text-left">Book a call</button></li>
             </ul>
           </div>
         </div>
@@ -94,20 +117,7 @@ export function Footer() {
           </button>
         </div>
       </div>
-      {isClient && (
-        <PopupModal
-          url="https://calendly.com/imstorm23203"
-          onModalClose={() => setIsCalendlyOpen(false)}
-          open={isCalendlyOpen}
-          rootElement={document.getElementById("root") || document.body}
-          pageSettings={{
-            backgroundColor: theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? '0a0a0a' : 'ffffff',
-            primaryColor: '0069ff',
-            textColor: theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? 'ffffff' : '0a0a0a',
-            hideLandingPageDetails: false
-          }}
-        />
-      )}
+
     </footer>
   );
 }

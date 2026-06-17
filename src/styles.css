@@ -486,3 +486,53 @@
 .view-transitioning * {
   transition: none !important;
 }
+
+/* ── Cal.com Modal Premium UI ──────────────────────── */
+
+/* Apply to the custom element root */
+cal-modal {
+  animation: modal-fade-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
+/* Target the internal shadow DOM if accessible, or fallback */
+cal-modal::part(overlay) {
+  background-color: color-mix(in oklab, var(--background) 50%, transparent) !important;
+  backdrop-filter: blur(16px) saturate(1.2) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.2) !important;
+}
+
+cal-modal::part(dialog) {
+  border: 1px solid color-mix(in oklab, var(--brand) 20%, var(--border)) !important;
+  border-radius: var(--radius-2xl) !important;
+  box-shadow: 0 0 0 1px oklch(1 0 0 / 5%) inset,
+              0 30px 60px -20px oklch(0 0 0 / 60%),
+              0 0 40px -10px color-mix(in oklab, var(--brand) 15%, transparent) !important;
+  animation: modal-slide-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+  overflow: hidden !important;
+}
+
+/* Fallback for iframe if ::part isn't supported */
+cal-modal iframe {
+  border-radius: var(--radius-xl) !important;
+  border: 1px solid color-mix(in oklab, var(--brand) 20%, var(--border)) !important;
+  box-shadow: 0 30px 60px -20px oklch(0 0 0 / 60%),
+              0 0 40px -10px color-mix(in oklab, var(--brand) 15%, transparent) !important;
+  animation: modal-slide-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modal-slide-up {
+  from { 
+    opacity: 0; 
+    transform: translateY(40px) scale(0.96); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+

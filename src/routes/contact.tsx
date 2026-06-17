@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getCalApi } from "@calcom/embed-react";
 import { ArrowRight, Check, Mail, Linkedin, MessageCircle, MessageSquare, Calendar, Shield, Twitter } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -7,6 +8,7 @@ import { HeroBackground } from "@/components/site/Background";
 import { Reveal } from "@/components/site/Reveal";
 import { Field, SelectField } from "@/components/site/FormFields";
 import { motion } from "framer-motion";
+import { useTheme } from "@/components/theme-provider";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -32,6 +34,32 @@ export const Route = createFileRoute("/contact")({
 function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi();
+      cal("ui", {
+        "hideEventTypeDetails": false,
+        "layout": "month_view",
+        "theme": theme === "dark" || (theme === "system" && typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light",
+        "cssVarsPerTheme": {
+          "light": {
+            "cal-brand": "#8b5cf6",
+            "cal-text": "#0a0a0a",
+            "cal-bg": "#fcfcfc"
+          },
+          "dark": {
+            "cal-brand": "#a855f7",
+            "cal-text": "#fafafa",
+            "cal-bg": "#151518",
+            "cal-bg-muted": "#1c1c20"
+          }
+        }
+      });
+    })();
+  }, [theme]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -88,7 +116,7 @@ function ContactPage() {
               <ContactItem icon={Linkedin} label="LinkedIn" value="GLAD Studio" href="https://www.linkedin.com/company/glad-studio-2k26" />
               <ContactItem icon={MessageSquare} label="Discord" value="Join our server" href="https://discord.gg/VK6EVX6k" />
               <ContactItem icon={MessageCircle} label="Reddit" value="r/GLADStudio" href="https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK" />
-              <ContactItem icon={Calendar} label="Calendar" value="Schedule a meeting" href="https://calendly.com/imstorm23203" target="_blank" />
+              <ContactItem icon={Calendar} label="Calendar" value="Schedule a meeting" href="https://cal.com/arjun-rajput-2mdsis" calLink="arjun-rajput-2mdsis" calConfig={JSON.stringify({layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'})} />
             </div>
 
             {/* Trust badges */}
@@ -170,15 +198,21 @@ function ContactItem({
   value,
   href,
   target,
+  calLink,
+  calNamespace,
+  calConfig,
 }: {
   icon: typeof Mail;
   label: string;
   value: string;
   href: string;
   target?: string;
+  calLink?: string;
+  calNamespace?: string;
+  calConfig?: string;
 }) {
   return (
-    <a href={href} target={target} className="flex items-center gap-4 group">
+    <a href={href} target={target} data-cal-link={calLink} data-cal-namespace={calNamespace} data-cal-config={calConfig || (calLink ? '{"layout":"month_view"}' : undefined)} className="flex items-center gap-4 group">
       <div className="size-11 rounded-xl surface-card grid place-items-center group-hover:border-ring/40 transition-all duration-300 group-hover:-translate-y-0.5">
         <Icon className="size-4" />
       </div>

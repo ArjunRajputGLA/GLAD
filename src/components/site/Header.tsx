@@ -6,7 +6,7 @@ import { ScrollProgress } from "./ScrollProgress";
 import darkLogo from "../../routes/images/website logo(black background compatible).png";
 import lightLogo from "../../routes/images/website logo(white background compatible).png";
 import { useTheme } from "../theme-provider";
-import { PopupModal } from "react-calendly";
+import { getCalApi } from "@calcom/embed-react";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -20,7 +20,6 @@ const nav = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -75,8 +74,33 @@ export function Header() {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+    
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi();
+      cal("ui", {
+        "hideEventTypeDetails": false,
+        "layout": "month_view",
+        "theme": theme === "dark" || (theme === "system" && typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light",
+        "cssVarsPerTheme": {
+          "light": {
+            "cal-brand": "#8b5cf6",
+            "cal-text": "#0a0a0a",
+            "cal-bg": "#fcfcfc"
+          },
+          "dark": {
+            "cal-brand": "#a855f7",
+            "cal-text": "#fafafa",
+            "cal-bg": "#151518",
+            "cal-bg-muted": "#1c1c20"
+          }
+        }
+      });
+    })();
+  }, [theme]);
 
   return (
     <>
@@ -128,10 +152,11 @@ export function Header() {
               {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
             </button>
             <button
-              onClick={() => setIsCalendlyOpen(true)}
+              data-cal-link="arjun-rajput-2mdsis"
+              data-cal-config={JSON.stringify({layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'})}
               className="btn-primary text-sm !py-2 !px-5"
             >
-              Book a Discovery Call
+              Book a Call
             </button>
           </div>
 
@@ -192,13 +217,12 @@ export function Header() {
                   transition={{ delay: 0.35 }}
                 >
                   <button
-                    onClick={() => {
-                      setOpen(false);
-                      setIsCalendlyOpen(true);
-                    }}
+                    onClick={() => setOpen(false)}
+                    data-cal-link="arjun-rajput-2mdsis"
+                    data-cal-config={JSON.stringify({layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'})}
                     className="w-full mt-3 btn-primary justify-center text-sm"
                   >
-                    Book a Discovery Call
+                    Book a Call
                   </button>
                 </motion.div>
               </div>
@@ -207,20 +231,7 @@ export function Header() {
         </AnimatePresence>
       </header>
 
-      {isClient && (
-        <PopupModal
-          url="https://calendly.com/imstorm23203"
-          onModalClose={() => setIsCalendlyOpen(false)}
-          open={isCalendlyOpen}
-          rootElement={document.getElementById("root") || document.body}
-          pageSettings={{
-            backgroundColor: theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? '0a0a0a' : 'ffffff',
-            primaryColor: '0069ff',
-            textColor: theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? 'ffffff' : '0a0a0a',
-            hideLandingPageDetails: false
-          }}
-        />
-      )}
+
     </>
   );
 }
