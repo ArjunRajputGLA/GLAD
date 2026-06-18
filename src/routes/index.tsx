@@ -34,6 +34,52 @@ import {
 import { useState, useEffect } from "react";
 import { getCalApi } from "@calcom/embed-react";
 import { useTheme } from "@/components/theme-provider";
+import { createServerFn } from "@tanstack/react-start";
+
+export const getAvailableSlots = createServerFn({ method: "GET" }).handler(
+  async () => {
+    try {
+      const apiKey = process.env.CALCOM_API_KEY;
+      if (!apiKey) return 2; // fallback
+      
+      const response = await fetch(`https://api.cal.com/v2/bookings`, {
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "cal-api-version": "2024-08-13",
+        },
+      });
+
+      if (!response.ok) {
+        console.error("Failed to fetch bookings from Cal.com", await response.text());
+        return 2;
+      }
+      
+      const data = await response.json();
+      
+      if (data.status === "success" && Array.isArray(data.data)) {
+        // Only count accepted bookings for project-consultation and technical-discussion
+        const countedSlugs = ["project-consultation", "technical-discussion"];
+        const validBookings = data.data.filter((booking: any) => {
+          return (
+            booking.status === "accepted" &&
+            booking.eventType &&
+            countedSlugs.includes(booking.eventType.slug)
+          );
+        });
+
+        // Global capacity limit per quarter
+        const CAPACITY_LIMIT = 10;
+        const slotsLeft = Math.max(0, CAPACITY_LIMIT - validBookings.length);
+        return slotsLeft;
+      }
+      
+      return 2;
+    } catch (err) {
+      console.error("Error fetching bookings", err);
+      return 2;
+    }
+  }
+);
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -54,6 +100,10 @@ export const Route = createFileRoute("/")({
     ],
     links: [{ rel: "canonical", href: "/" }],
   }),
+  loader: async () => {
+    const slots = await getAvailableSlots();
+    return { slots };
+  },
   component: Home,
 });
 
@@ -77,10 +127,11 @@ const processSteps = [
 ];
 
 function Home() {
+  const { slots } = Route.useLoaderData();
   return (
     <div className="min-h-screen">
       <Header />
-      <Hero />
+      <Hero slots={slots} />
       <TechStrip />
       <Services />
       <WhyUs />
@@ -96,7 +147,7 @@ function Home() {
 
 /* ─── Hero ──────────────────────────────────────────── */
 
-function Hero() {
+function Hero({ slots = 2 }: { slots?: number }) {
   return (
     <section className="relative pt-36 pb-24 md:pt-44 md:pb-32 overflow-hidden min-h-[90vh] flex items-center">
       <HeroBackground />
@@ -135,7 +186,7 @@ function Hero() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex rounded-full size-2 bg-emerald-400" />
                 </span>
-                Now booking projects for Q3 — 2 slots left
+                Now booking projects for Q3 — {slots} slots left
               </div>
             </motion.div>
 

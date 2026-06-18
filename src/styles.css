@@ -241,6 +241,12 @@
   transition: filter 700ms ease, mix-blend-mode 700ms ease;
 }
 
+/* Hide Spline watermark */
+.spline-scene canvas + div,
+.spline-scene a {
+  display: none !important;
+}
+
 :is(.dark) .spline-scene {
   mix-blend-mode: screen;
   filter: none;
