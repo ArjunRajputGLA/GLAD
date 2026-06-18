@@ -214,7 +214,7 @@ function HeroCTA() {
     <>
       <button
         data-cal-link="arjun-rajput-2mdsis"
-        data-cal-config={JSON.stringify({layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'})}
+        data-cal-config={JSON.stringify({ layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light' })}
         className="group btn-primary animate-pulse-glow"
       >
         Book a Call
@@ -548,9 +548,9 @@ function ContactForm({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    
+
     const formData = new FormData(e.currentTarget);
-    
+
     try {
       await fetch("https://formsubmit.co/ajax/hello@gladstudio.net", {
         method: "POST",

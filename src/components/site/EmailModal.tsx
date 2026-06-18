@@ -88,9 +88,9 @@ export function EmailModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                       }
                     }} className="space-y-4">
                       <Field label="Name" name="name" placeholder="Your name" required />
-                      <Field label="Email address" name="email" type="email" placeholder="you@company.com" required />
+                      <Field label="Your email address" name="email" type="email" placeholder="you@company.com" required />
                       <Field label="Message" name="message" textarea placeholder="How can we help?" required />
-                      
+
                       <button
                         type="submit"
                         disabled={loading}

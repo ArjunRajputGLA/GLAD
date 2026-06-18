@@ -55,14 +55,14 @@ function ContactPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    
+
     const formData = new FormData(e.currentTarget);
-    
+
     try {
       await fetch("https://formsubmit.co/ajax/hello@gladstudio.net", {
         method: "POST",
         headers: {
-            'Accept': 'application/json'
+          'Accept': 'application/json'
         },
         body: formData
       });
@@ -107,7 +107,7 @@ function ContactPage() {
               <ContactItem icon={Linkedin} label="LinkedIn" value="GLAD Studio" href="https://www.linkedin.com/company/glad-studio-2k26" target="_blank" />
               <ContactItem icon={({ className }: { className?: string }) => <img src={discordLogo} alt="Discord" className={`${className} scale-125 dark:invert`} />} label="Discord" value="Join our server" href="https://discord.gg/VK6EVX6k" target="_blank" />
               <ContactItem icon={({ className }: { className?: string }) => <img src={redditLogo} alt="Reddit" className={`${className} scale-125 dark:invert`} />} label="Reddit" value="r/GLADStudio" href="https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK" target="_blank" />
-              <ContactItem icon={Calendar} label="Calendar" value="Schedule a meeting" href="https://cal.com/arjun-rajput-2mdsis" calLink="arjun-rajput-2mdsis" calConfig={JSON.stringify({layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'})} />
+              <ContactItem icon={Calendar} label="Calendar" value="Schedule a meeting" href="https://cal.com/arjun-rajput-2mdsis" calLink="arjun-rajput-2mdsis" calConfig={JSON.stringify({ layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light' })} />
             </div>
 
             {/* Trust badges */}
