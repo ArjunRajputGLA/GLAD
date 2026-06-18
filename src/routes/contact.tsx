@@ -11,6 +11,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { Field, SelectField } from "@/components/site/FormFields";
 import { motion } from "framer-motion";
 import { useTheme } from "@/components/theme-provider";
+import { EmailModal } from "@/components/site/EmailModal";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -36,6 +37,7 @@ export const Route = createFileRoute("/contact")({
 function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
 
   const { theme } = useTheme();
 
@@ -100,7 +102,7 @@ function ContactPage() {
 
             {/* Contact items */}
             <div className="mt-10 space-y-4">
-              <ContactItem icon={Mail} label="Email" value="hello@gladstudio.net" href="mailto:hello@gladstudio.net" />
+              <ContactItem icon={Mail} label="Email" value="hello@gladstudio.net" href="#" onClick={(e) => { e.preventDefault(); setIsEmailModalOpen(true); }} />
               <ContactItem icon={Twitter} label="X (Twitter)" value="@_GLAD_Studio" href="https://x.com/_GLAD_Studio" target="_blank" />
               <ContactItem icon={Linkedin} label="LinkedIn" value="GLAD Studio" href="https://www.linkedin.com/company/glad-studio-2k26" target="_blank" />
               <ContactItem icon={({ className }: { className?: string }) => <img src={discordLogo} alt="Discord" className={`${className} scale-125 dark:invert`} />} label="Discord" value="Join our server" href="https://discord.gg/VK6EVX6k" target="_blank" />
@@ -177,6 +179,7 @@ function ContactPage() {
       </section>
 
       <Footer />
+      <EmailModal isOpen={isEmailModalOpen} onClose={() => setIsEmailModalOpen(false)} />
     </div>
   );
 }
@@ -190,6 +193,7 @@ function ContactItem({
   calLink,
   calNamespace,
   calConfig,
+  onClick,
 }: {
   icon: any;
   label: string;
@@ -199,9 +203,10 @@ function ContactItem({
   calLink?: string;
   calNamespace?: string;
   calConfig?: string;
+  onClick?: (e: React.MouseEvent) => void;
 }) {
   return (
-    <a href={href} target={target} rel={target === "_blank" ? "noopener noreferrer" : undefined} data-cal-link={calLink} data-cal-namespace={calNamespace} data-cal-config={calConfig || (calLink ? '{"layout":"month_view"}' : undefined)} className="flex items-center gap-4 group">
+    <a href={href} target={target} onClick={onClick} rel={target === "_blank" ? "noopener noreferrer" : undefined} data-cal-link={calLink} data-cal-namespace={calNamespace} data-cal-config={calConfig || (calLink ? '{"layout":"month_view"}' : undefined)} className="flex items-center gap-4 group">
       <div className="size-11 rounded-xl surface-card grid place-items-center group-hover:border-ring/40 transition-all duration-300 group-hover:-translate-y-0.5">
         <Icon className="size-4" />
       </div>

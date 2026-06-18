@@ -70,7 +70,7 @@ function AboutPage() {
               We build <span className="text-gradient">products</span>,<br />not just software.
             </h1>
             <p className="mt-7 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              GLAD studio is a dedicated team of four builders. We help startups
+              GLAD studio is a dedicated team of passionate builders. We help startups
               and growing businesses turn ideas into shipped products — web, mobile
               and AI — with the rigor of a great in-house team.
             </p>

@@ -7,6 +7,7 @@ import redditLogo from "../../routes/images/reddit-logo.png";
 import { useState, useEffect } from "react";
 import { getCalApi } from "@calcom/embed-react";
 import { useTheme } from "../theme-provider";
+import { EmailModal } from "./EmailModal";
 
 const socials = [
   { icon: Twitter, href: "https://x.com/_GLAD_Studio", label: "X (Twitter)" },
@@ -17,6 +18,7 @@ const socials = [
 
 export function Footer() {
   const [isClient, setIsClient] = useState(false);
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -92,7 +94,7 @@ export function Footer() {
           <div className="md:col-span-2">
             <h4 className="text-sm font-semibold mb-4">Contact</h4>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm text-muted-foreground">
-              <li><a href="mailto:hello@gladstudio.net" className="hover:text-foreground transition-colors">hello@gladstudio.net</a></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); setIsEmailModalOpen(true); }} className="hover:text-foreground transition-colors">hello@gladstudio.net</a></li>
               <li><a href="https://x.com/_GLAD_Studio" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
               <li><a href="https://www.linkedin.com/company/glad-studio-2k26" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
               <li><a href="https://discord.gg/VK6EVX6k" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">Discord</a></li>
@@ -115,6 +117,7 @@ export function Footer() {
         </div>
       </div>
 
+      <EmailModal isOpen={isEmailModalOpen} onClose={() => setIsEmailModalOpen(false)} />
     </footer>
   );
 }
