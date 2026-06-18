@@ -396,33 +396,38 @@ function Featured() {
 
 function Testimonials() {
   return (
-    <section className="relative py-28 section-divider noise-bg">
+    <section className="relative py-28 section-divider noise-bg overflow-hidden">
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         <Reveal>
           <SectionHeading eyebrow="Kind words" title="What our clients say." />
         </Reveal>
-        <RevealGroup className="mt-16 grid gap-6 md:grid-cols-3" stagger={0.08}>
-          {testimonials.map((t) => (
-            <RevealItem key={t.name}>
-              <figure className="surface-card interactive-card p-7 h-full flex flex-col">
-                <Quote className="size-8 text-brand/30 mb-3 -ml-1" />
-                <blockquote className="text-base leading-relaxed flex-1">
-                  "{t.quote}"
-                </blockquote>
-                <figcaption className="mt-6 flex items-center gap-3 pt-5 border-t border-border">
-                  <div className="size-10 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground text-sm font-semibold">
-                    {t.name.split(" ").map((n) => n[0]).join("")}
-                  </div>
-                  <div>
-                    <div className="text-sm font-medium">{t.name}</div>
-                    <div className="text-xs text-muted-foreground">{t.role}</div>
-                  </div>
-                </figcaption>
-              </figure>
-            </RevealItem>
-          ))}
-        </RevealGroup>
       </div>
+
+      <Reveal>
+        <div className="mt-16 relative flex overflow-hidden mask-edges w-full pb-8">
+          <div className="flex gap-6 w-max animate-marquee px-4">
+            {[...testimonials, ...testimonials, ...testimonials, ...testimonials].map((t, idx) => (
+              <div key={idx} className="w-[320px] md:w-[400px] shrink-0">
+                <figure className="surface-card interactive-card p-7 h-full flex flex-col">
+                  <Quote className="size-8 text-brand/30 mb-3 -ml-1" />
+                  <blockquote className="text-base leading-relaxed flex-1">
+                    "{t.quote}"
+                  </blockquote>
+                  <figcaption className="mt-6 flex items-center gap-3 pt-5 border-t border-border">
+                    <div className="size-10 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground text-sm font-semibold">
+                      {t.name.split(" ").map((n) => n[0]).join("")}
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium">{t.name}</div>
+                      <div className="text-xs text-muted-foreground">{t.role}</div>
+                    </div>
+                  </figcaption>
+                </figure>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
     </section>
   );
 }
