@@ -404,7 +404,7 @@ function Testimonials() {
       </div>
 
       <Reveal>
-        <div className="mt-16 relative flex overflow-hidden mask-edges w-full pb-8">
+        <div className="mt-12 relative flex overflow-hidden mask-edges w-full pt-4 pb-8">
           <div className="flex gap-6 w-max animate-marquee px-4">
             {[...testimonials, ...testimonials, ...testimonials, ...testimonials].map((t, idx) => (
               <div key={idx} className="w-[320px] md:w-[400px] shrink-0">
