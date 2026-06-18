@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
-import { getCalApi } from "@calcom/embed-react";
-import { ArrowRight, Check, Mail, Linkedin, Calendar, Shield, Twitter } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, Check, Mail, Linkedin, Shield, Twitter } from "lucide-react";
 import discordLogo from "./images/discord-black-logo.png";
 import redditLogo from "./images/reddit-logo.png";
 import { Header } from "@/components/site/Header";
@@ -10,7 +9,6 @@ import { HeroBackground } from "@/components/site/Background";
 import { Reveal } from "@/components/site/Reveal";
 import { Field, SelectField } from "@/components/site/FormFields";
 import { motion } from "framer-motion";
-import { useTheme } from "@/components/theme-provider";
 import { EmailModal } from "@/components/site/EmailModal";
 
 export const Route = createFileRoute("/contact")({
@@ -38,19 +36,6 @@ function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
-
-  const { theme } = useTheme();
-
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi();
-      cal("ui", {
-        "hideEventTypeDetails": false,
-        "layout": "month_view",
-        "theme": theme === "dark" || (theme === "system" && typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"
-      });
-    })();
-  }, [theme]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -107,7 +92,6 @@ function ContactPage() {
               <ContactItem icon={Linkedin} label="LinkedIn" value="GLAD Studio" href="https://www.linkedin.com/company/glad-studio-2k26" target="_blank" />
               <ContactItem icon={({ className }: { className?: string }) => <img src={discordLogo} alt="Discord" className={`${className} scale-125 dark:invert`} />} label="Discord" value="Join our server" href="https://discord.gg/VK6EVX6k" target="_blank" />
               <ContactItem icon={({ className }: { className?: string }) => <img src={redditLogo} alt="Reddit" className={`${className} scale-125 dark:invert`} />} label="Reddit" value="r/GLADStudio" href="https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK" target="_blank" />
-              <ContactItem icon={Calendar} label="Calendar" value="Schedule a meeting" href="https://cal.com/arjun-rajput-2mdsis" calLink="arjun-rajput-2mdsis" calConfig={JSON.stringify({ layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light' })} />
             </div>
 
             {/* Trust badges */}
@@ -190,9 +174,6 @@ function ContactItem({
   value,
   href,
   target,
-  calLink,
-  calNamespace,
-  calConfig,
   onClick,
 }: {
   icon: any;
@@ -200,13 +181,10 @@ function ContactItem({
   value: string;
   href: string;
   target?: string;
-  calLink?: string;
-  calNamespace?: string;
-  calConfig?: string;
   onClick?: (e: React.MouseEvent) => void;
 }) {
   return (
-    <a href={href} target={target} onClick={onClick} rel={target === "_blank" ? "noopener noreferrer" : undefined} data-cal-link={calLink} data-cal-namespace={calNamespace} data-cal-config={calConfig || (calLink ? '{"layout":"month_view"}' : undefined)} className="flex items-center gap-4 group">
+    <a href={href} target={target} onClick={onClick} rel={target === "_blank" ? "noopener noreferrer" : undefined} className="flex items-center gap-4 group">
       <div className="size-11 rounded-xl surface-card grid place-items-center group-hover:border-ring/40 transition-all duration-300 group-hover:-translate-y-0.5">
         <Icon className="size-4" />
       </div>
