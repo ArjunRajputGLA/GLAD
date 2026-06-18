@@ -68,7 +68,7 @@ export const getAvailableSlots = createServerFn({ method: "GET" }).handler(
         });
 
         // Global capacity limit per quarter
-        const CAPACITY_LIMIT = 10;
+        const CAPACITY_LIMIT = 5;
         const slotsLeft = Math.max(0, CAPACITY_LIMIT - validBookings.length);
         return slotsLeft;
       }
