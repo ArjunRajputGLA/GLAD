@@ -14,6 +14,7 @@ import {
   Shield,
   Check,
   Quote,
+  ChevronRight,
 } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -379,7 +380,7 @@ function Process() {
         </Reveal>
         <div className="mt-16 relative">
           {/* Connecting line */}
-          <div className="absolute left-0 right-0 top-6 h-px bg-gradient-to-r from-transparent via-border to-transparent hidden md:block" />
+          <div className="absolute left-0 right-0 top-6 h-px bg-gradient-to-r from-transparent via-black dark:via-white to-transparent hidden md:block" />
           <RevealGroup className="grid gap-8 md:grid-cols-6" stagger={0.06}>
             {processSteps.map((step, i) => (
               <RevealItem key={step} direction="scale">
@@ -387,6 +388,11 @@ function Process() {
                   <div className="size-12 rounded-full bg-surface border border-border grid place-items-center text-sm font-semibold relative z-10 mx-auto md:mx-0 shadow-lg">
                     <span className="text-gradient">0{i + 1}</span>
                   </div>
+                  {i < processSteps.length - 1 && (
+                    <div className="hidden md:grid absolute top-6 left-[calc(100%+1rem)] -translate-x-1/2 -translate-y-1/2 z-10 size-6 place-items-center bg-background rounded-full border border-border/50 text-muted-foreground/50 shadow-sm">
+                      <ChevronRight className="size-3" />
+                    </div>
+                  )}
                   <h4 className="mt-4 font-medium tracking-tight">{step}</h4>
                 </div>
               </RevealItem>

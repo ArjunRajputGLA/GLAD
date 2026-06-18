@@ -49,17 +49,37 @@ export function Header() {
         Math.max(y, window.innerHeight - y)
       );
 
+      // Liquid droplet effect on the incoming theme
       document.documentElement.animate(
+        [
+          {
+            clipPath: `circle(0px at ${x}px ${y}px)`,
+            filter: "brightness(1.5) blur(10px)",
+            transform: "scale(0.95)",
+          },
+          {
+            clipPath: `circle(${endRadius}px at ${x}px ${y}px)`,
+            filter: "brightness(1) blur(0px)",
+            transform: "scale(1)",
+          }
+        ],
         {
-          clipPath: [
-            `circle(0px at ${x}px ${y}px)`,
-            `circle(${endRadius}px at ${x}px ${y}px)`,
-          ],
-        },
-        {
-          duration: 600,
-          easing: "ease-in-out",
+          duration: 800,
+          easing: "cubic-bezier(0.25, 1, 0.5, 1)",
           pseudoElement: "::view-transition-new(root)",
+        }
+      );
+
+      // Old theme gets washed away (blurred and scaled up) to add depth to the droplet effect
+      document.documentElement.animate(
+        [
+          { transform: "scale(1)", filter: "blur(0px)", opacity: 1 },
+          { transform: "scale(1.05)", filter: "blur(8px)", opacity: 0 }
+        ],
+        {
+          duration: 800,
+          easing: "cubic-bezier(0.25, 1, 0.5, 1)",
+          pseudoElement: "::view-transition-old(root)",
         }
       );
     });
