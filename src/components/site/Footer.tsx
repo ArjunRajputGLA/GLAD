@@ -1,25 +1,25 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUp, Linkedin, Twitter } from "lucide-react";
+import { ArrowUp, Linkedin, Twitter, Mail } from "lucide-react";
 import darkLogo from "../../routes/images/website logo(black background compatible).png";
 import lightLogo from "../../routes/images/website logo(white background compatible).png";
-import discordLogo from "../../routes/images/discord-black-logo.png";
 import redditLogo from "../../routes/images/reddit-logo.png";
 import { useState, useEffect } from "react";
 import { getCalApi } from "@calcom/embed-react";
 import { useTheme } from "../theme-provider";
 import { EmailModal } from "./EmailModal";
 
-const socials = [
-  { icon: Twitter, href: "https://x.com/_GLAD_Studio", label: "X (Twitter)" },
-  { icon: Linkedin, href: "https://www.linkedin.com/company/glad-studio-2k26", label: "LinkedIn" },
-  { icon: ({ className }: { className?: string }) => <img src={discordLogo} alt="Discord" className={`${className} scale-125 dark:invert`} />, href: "https://discord.gg/VK6EVX6k", label: "Discord" },
-  { icon: ({ className }: { className?: string }) => <img src={redditLogo} alt="Reddit" className={`${className} scale-125 dark:invert`} />, href: "https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK", label: "Reddit" },
-];
 
 export function Footer() {
   const [isClient, setIsClient] = useState(false);
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const { theme } = useTheme();
+
+  const socials = [
+    { icon: Twitter, href: "https://x.com/_GLAD_Studio", label: "X (Twitter)" },
+    { icon: Linkedin, href: "https://www.linkedin.com/company/glad-studio-2k26", label: "LinkedIn" },
+    { icon: ({ className }: { className?: string }) => <img src={redditLogo} alt="Reddit" className={`${className} scale-125 dark:invert`} />, href: "https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK", label: "Reddit" },
+    { icon: Mail, href: "#", label: "Email", onClick: (e: React.MouseEvent) => { e.preventDefault(); setIsEmailModalOpen(true); } },
+  ];
 
   useEffect(() => {
     setIsClient(true);
@@ -64,12 +64,13 @@ export function Footer() {
             </p>
             {/* Socials */}
             <div className="mt-6 flex items-center gap-3">
-              {socials.map(({ icon: Icon, href, label }) => (
+              {socials.map(({ icon: Icon, href, label, onClick }) => (
                 <a
                   key={label}
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={onClick}
+                  target={onClick ? undefined : "_blank"}
+                  rel={onClick ? undefined : "noopener noreferrer"}
                   aria-label={label}
                   className="size-9 rounded-lg border border-border grid place-items-center text-muted-foreground hover:text-foreground hover:border-ring/40 transition-all duration-300 hover:-translate-y-0.5"
                 >
@@ -97,7 +98,6 @@ export function Footer() {
               <li><a href="#" onClick={(e) => { e.preventDefault(); setIsEmailModalOpen(true); }} className="hover:text-foreground transition-colors">hello@gladstudio.net</a></li>
               <li><a href="https://x.com/_GLAD_Studio" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
               <li><a href="https://www.linkedin.com/company/glad-studio-2k26" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-              <li><a href="https://discord.gg/VK6EVX6k" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">Discord</a></li>
               <li><a href="https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">Reddit</a></li>
               <li><button data-cal-link="arjun-rajput-2mdsis" data-cal-config={JSON.stringify({layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'})} className="hover:text-foreground transition-colors cursor-pointer text-left">Book a call</button></li>
             </ul>
