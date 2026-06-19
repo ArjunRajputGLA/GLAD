@@ -1,8 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUp, Linkedin, Twitter } from "lucide-react";
+import { ArrowUp, Linkedin, Mail, Twitter } from "lucide-react";
 import darkLogo from "../../routes/images/website logo(black background compatible).png";
 import lightLogo from "../../routes/images/website logo(white background compatible).png";
-import discordLogo from "../../routes/images/discord-black-logo.png";
 import redditLogo from "../../routes/images/reddit-logo.png";
 import { useState, useEffect } from "react";
 import { getCalApi } from "@calcom/embed-react";
@@ -12,8 +11,8 @@ import { EmailModal } from "./EmailModal";
 const socials = [
   { icon: Twitter, href: "https://x.com/_GLAD_Studio", label: "X (Twitter)" },
   { icon: Linkedin, href: "https://www.linkedin.com/company/glad-studio-2k26", label: "LinkedIn" },
-  { icon: ({ className }: { className?: string }) => <img src={discordLogo} alt="Discord" className={`${className} scale-125 dark:invert`} />, href: "https://discord.gg/VK6EVX6k", label: "Discord" },
   { icon: ({ className }: { className?: string }) => <img src={redditLogo} alt="Reddit" className={`${className} scale-125 dark:invert`} />, href: "https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK", label: "Reddit" },
+  { icon: Mail, href: "#", label: "Email", onClick: true },
 ];
 
 export function Footer() {
@@ -64,18 +63,33 @@ export function Footer() {
             </p>
             {/* Socials */}
             <div className="mt-6 flex items-center gap-3">
-              {socials.map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="size-9 rounded-lg border border-border grid place-items-center text-muted-foreground hover:text-foreground hover:border-ring/40 transition-all duration-300 hover:-translate-y-0.5"
-                >
-                  <Icon className="size-4" />
-                </a>
-              ))}
+              {socials.map((social) => {
+                const Icon = social.icon;
+                if (social.onClick) {
+                  return (
+                    <button
+                      key={social.label}
+                      onClick={() => setIsEmailModalOpen(true)}
+                      aria-label={social.label}
+                      className="size-9 rounded-lg border border-border grid place-items-center text-muted-foreground hover:text-foreground hover:border-ring/40 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer bg-transparent"
+                    >
+                      <Icon className="size-4" />
+                    </button>
+                  );
+                }
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="size-9 rounded-lg border border-border grid place-items-center text-muted-foreground hover:text-foreground hover:border-ring/40 transition-all duration-300 hover:-translate-y-0.5"
+                  >
+                    <Icon className="size-4" />
+                  </a>
+                );
+              })}
             </div>
           </div>
 
@@ -97,7 +111,6 @@ export function Footer() {
               <li><a href="#" onClick={(e) => { e.preventDefault(); setIsEmailModalOpen(true); }} className="hover:text-foreground transition-colors">hello@gladstudio.net</a></li>
               <li><a href="https://x.com/_GLAD_Studio" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
               <li><a href="https://www.linkedin.com/company/glad-studio-2k26" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-              <li><a href="https://discord.gg/VK6EVX6k" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">Discord</a></li>
               <li><a href="https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">Reddit</a></li>
               <li><button data-cal-link="arjun-rajput-2mdsis" data-cal-config={JSON.stringify({layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'})} className="hover:text-foreground transition-colors cursor-pointer text-left">Book a call</button></li>
             </ul>

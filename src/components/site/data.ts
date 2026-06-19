@@ -202,7 +202,7 @@ export const projects = [
     name: "Q-SAFE",
     category: "Security Platform",
     short: "Zero-Knowledge Encrypted Secure File Transmission Portal",
-    tech: ["React.js", "Django REST Framework", "PostgreSQL", "Docker"],
+    tech: ["React.js", "Django REST", "PostgreSQL", "Docker"],
     gradient: "linear-gradient(135deg, #f59e0b, #7c3aed)",
     challenge:
       "Organizations needed a secure, self-hosted way to share sensitive documents without relying on third-party services that lacked fine-grained access controls.",

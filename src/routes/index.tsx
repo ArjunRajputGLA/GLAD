@@ -135,7 +135,6 @@ function Home() {
       <Header />
       <Hero slots={slots} />
       <TechStrip />
-      <Stats />
       <Services />
       <WhyUs />
       <Process />
@@ -658,36 +657,5 @@ function ContactForm({
         {loading ? "Sending..." : "Send & book call"} <ArrowRight className="size-4" />
       </button>
     </form>
-  );
-}
-
-/* ─── Stats Section ─────────────────────────────────── */
-
-function Stats() {
-  const stats = [
-    { value: "99%", label: "Client Satisfaction" },
-    { value: "45+", label: "Projects Completed" },
-    { value: "5x", label: "Average Client ROI" },
-    { value: "24/7", label: "Dedicated Support" },
-  ];
-
-  return (
-    <section className="py-16 bg-neutral-900/50 border-y border-white/5 relative overflow-hidden">
-      <div className="container max-w-6xl mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-          {stats.map((stat, i) => (
-            <div key={i} className="text-center group">
-              <div className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-2 bg-gradient-to-r from-white via-white to-neutral-400 bg-clip-text text-transparent transition-all duration-300 group-hover:scale-105">
-                {stat.value}
-              </div>
-              <div className="text-sm md:text-base text-neutral-400 font-medium">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.08),rgba(255,255,255,0))]" />
-    </section>
   );
 }
