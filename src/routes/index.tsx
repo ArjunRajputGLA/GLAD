@@ -85,21 +85,22 @@ export const getAvailableSlots = createServerFn({ method: "GET" }).handler(
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "GLAD: Growing Localized Applications Dynamically" },
+      { title: "Glad Studio — Web, Mobile & AI Development Agency" },
       {
         name: "description",
         content:
           "We help startups and growing businesses ship web apps, mobile apps and AI-powered products that scale.",
       },
-      { property: "og:title", content: "GLAD: Growing Localized Applications Dynamically" },
+      { property: "og:title", content: "Glad Studio — Web, Mobile & AI Development Agency" },
       {
         property: "og:description",
         content:
           "We help startups and growing businesses ship web apps, mobile apps and AI-powered products that scale.",
       },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: "https://gladstudio.net/" },
+      { property: "og:image", content: "https://gladstudio.net/og-image.png" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: "https://gladstudio.net/" }],
   }),
   loader: async () => {
     const slots = await getAvailableSlots();

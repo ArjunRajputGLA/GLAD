@@ -80,27 +80,77 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "GLAD: Growing Localized Applications Dynamically" },
+      { title: "Glad Studio — Web, Mobile & AI Development Agency" },
       {
         name: "description",
         content:
-          "GLAD studio is a premium software studio building web apps, mobile apps and AI products for startups and growing businesses.",
+          "Glad Studio is a full-service digital agency specializing in AI-powered web apps, mobile development, and data engineering. Based in India, serving clients globally.",
       },
-      { property: "og:site_name", content: "GLAD studio" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
       {
-        rel: "preconnect",
-        href: "https://fonts.googleapis.com",
+        name: "keywords",
+        content:
+          "web development agency, AI development, mobile app development, data engineering, React, Flutter, machine learning, India",
       },
+      { name: "robots", content: "index, follow" },
+      { name: "theme-color", content: "#0A0A0B" },
+      { name: "author", content: "Glad Studio" },
+      // Open Graph
+      { property: "og:title", content: "Glad Studio — Web, Mobile & AI Development Agency" },
+      {
+        property: "og:description",
+        content:
+          "Glad Studio is a full-service digital agency specializing in AI-powered web apps, mobile development, and data engineering. Based in India, serving clients globally.",
+      },
+      { property: "og:url", content: "https://gladstudio.net/" },
+      { property: "og:image", content: "https://gladstudio.net/og-image.png" },
+      { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Glad Studio" },
+      // Twitter Card
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Glad Studio — Web, Mobile & AI Development Agency" },
+      {
+        name: "twitter:description",
+        content:
+          "Glad Studio is a full-service digital agency specializing in AI-powered web apps, mobile development, and data engineering. Based in India, serving clients globally.",
+      },
+      { name: "twitter:image", content: "https://gladstudio.net/og-image.png" },
     ],
     links: [
       { rel: "icon", type: "image/jpeg", href: logoUrl },
+      { rel: "canonical", href: "https://gladstudio.net/" },
       { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@400;500;600;700&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ProfessionalService",
+          "name": "Glad Studio",
+          "url": "https://gladstudio.net",
+          "logo": "https://gladstudio.net/og-image.png",
+          "description": "Web, Mobile & AI development agency",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "IN",
+          },
+          "serviceType": [
+            "Web Development",
+            "Mobile App Development",
+            "AI Development",
+            "Data Engineering",
+          ],
+          "sameAs": [
+            "https://linkedin.com/company/gladstudio",
+            "https://instagram.com/gladstudio",
+          ],
+        }),
       },
     ],
   }),
