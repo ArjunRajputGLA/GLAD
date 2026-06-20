@@ -23,7 +23,7 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 export function ThemeProvider({
   children,
   defaultTheme = "dark",
-  storageKey = "glad-ui-theme",
+  storageKey = "glad-ui-theme-v2",
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(

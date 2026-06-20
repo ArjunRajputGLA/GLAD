@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUp, Linkedin, Mail, Twitter } from "lucide-react";
-import { ArrowUp, Linkedin, Twitter, Mail } from "lucide-react";
 import darkLogo from "../../routes/images/website logo(black background compatible).png";
 import lightLogo from "../../routes/images/website logo(white background compatible).png";
 import redditLogo from "../../routes/images/reddit-logo.png";
