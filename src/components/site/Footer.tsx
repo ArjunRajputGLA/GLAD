@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { ArrowUp, Linkedin, Mail, Twitter } from "lucide-react";
 import { ArrowUp, Linkedin, Twitter, Mail } from "lucide-react";
 import darkLogo from "../../routes/images/website logo(black background compatible).png";
 import lightLogo from "../../routes/images/website logo(white background compatible).png";
@@ -8,6 +9,12 @@ import { getCalApi } from "@calcom/embed-react";
 import { useTheme } from "../theme-provider";
 import { EmailModal } from "./EmailModal";
 
+const socials = [
+  { icon: Twitter, href: "https://x.com/_GLAD_Studio", label: "X (Twitter)" },
+  { icon: Linkedin, href: "https://www.linkedin.com/company/glad-studio-2k26", label: "LinkedIn" },
+  { icon: ({ className }: { className?: string }) => <img src={redditLogo} alt="Reddit" className={`${className} scale-125 dark:invert`} />, href: "https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK", label: "Reddit" },
+  { icon: Mail, href: "#", label: "Email", onClick: true },
+];
 
 export function Footer() {
   const [isClient, setIsClient] = useState(false);
