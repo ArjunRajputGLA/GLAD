@@ -63,7 +63,7 @@ function PortfolioPage() {
         <div className="mx-auto max-w-7xl px-6">
           <RevealGroup className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
             {projects.map((p) => (
-              <RevealItem key={p.slug}>
+              <RevealItem key={p.slug} className="h-full">
                 <ProjectCard project={p} />
               </RevealItem>
             ))}

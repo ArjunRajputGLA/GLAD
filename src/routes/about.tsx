@@ -131,9 +131,9 @@ function AboutPage() {
           </Reveal>
           <RevealGroup className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4" stagger={0.08}>
             {team.map((m) => (
-              <RevealItem key={m.name} direction="scale">
-                <div className="surface-card interactive-card overflow-hidden group">
-                  <div className="aspect-square bg-brand-gradient relative overflow-hidden">
+              <RevealItem key={m.name} direction="scale" className="h-full">
+                <div className="surface-card interactive-card overflow-hidden group h-full flex flex-col">
+                  <div className="aspect-square bg-brand-gradient relative overflow-hidden shrink-0">
                     {m.image ? (
                       <img
                         src={m.image}
@@ -149,7 +149,7 @@ function AboutPage() {
                       </>
                     )}
                   </div>
-                  <div className="p-6 relative bg-inherit z-10">
+                  <div className="p-6 relative bg-inherit z-10 flex-1 flex flex-col">
                     <h3 className="text-lg font-semibold tracking-tight">{m.name}</h3>
                     <div className="text-xs text-muted-foreground mt-1">{m.role}</div>
                     <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{m.bio}</p>

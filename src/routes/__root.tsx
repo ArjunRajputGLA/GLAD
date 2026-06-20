@@ -117,7 +117,7 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <ThemeProvider defaultTheme="system" storageKey="glad-ui-theme">
+        <ThemeProvider defaultTheme="dark" storageKey="glad-ui-theme">
           {children}
         </ThemeProvider>
         <Scripts />

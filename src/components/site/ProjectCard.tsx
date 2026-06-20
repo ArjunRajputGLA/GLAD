@@ -17,7 +17,7 @@ export function ProjectCard({ project: p, className }: { project: Project; class
     <Link
       to="/portfolio/$slug"
       params={{ slug: p.slug }}
-      className={`group surface-card interactive-card shine-on-hover overflow-hidden flex flex-col ${className || ""}`}
+      className={`group surface-card interactive-card shine-on-hover overflow-hidden flex flex-col h-full ${className || ""}`}
     >
       {/* Gradient or Image thumbnail */}
       <div className="relative flex-1 min-h-[240px] overflow-hidden">
