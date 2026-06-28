@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUp, Linkedin, Mail, Twitter } from "lucide-react";
+import { ArrowUp, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
 import darkLogo from "../../routes/images/website logo(black background compatible).png";
 import lightLogo from "../../routes/images/website logo(white background compatible).png";
 import redditLogo from "../../routes/images/reddit-logo.png";
@@ -11,6 +11,7 @@ import { EmailModal } from "./EmailModal";
 const socials = [
   { icon: Twitter, href: "https://x.com/_GLAD_Studio", label: "X (Twitter)" },
   { icon: Linkedin, href: "https://www.linkedin.com/company/glad-studio-2k26", label: "LinkedIn" },
+  { icon: Instagram, href: "https://www.instagram.com/__gladstudio/", label: "Instagram" },
   { icon: ({ className }: { className?: string }) => <img src={redditLogo} alt="Reddit" className={`${className} scale-125 dark:invert`} />, href: "https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK", label: "Reddit" },
   { icon: Mail, href: "#", label: "Email", onClick: true },
 ];
@@ -23,6 +24,7 @@ export function Footer() {
   const socials = [
     { icon: Twitter, href: "https://x.com/_GLAD_Studio", label: "X (Twitter)" },
     { icon: Linkedin, href: "https://www.linkedin.com/company/glad-studio-2k26", label: "LinkedIn" },
+    { icon: Instagram, href: "https://www.instagram.com/__gladstudio/", label: "Instagram" },
     { icon: ({ className }: { className?: string }) => <img src={redditLogo} alt="Reddit" className={`${className} scale-125 dark:invert`} />, href: "https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK", label: "Reddit" },
     { icon: Mail, href: "#", label: "Email", onClick: (e: React.MouseEvent) => { e.preventDefault(); setIsEmailModalOpen(true); } },
   ];
@@ -104,6 +106,7 @@ export function Footer() {
               <li><a href="#" onClick={(e) => { e.preventDefault(); setIsEmailModalOpen(true); }} className="hover:text-foreground transition-colors">hello@gladstudio.net</a></li>
               <li><a href="https://x.com/_GLAD_Studio" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
               <li><a href="https://www.linkedin.com/company/glad-studio-2k26" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+              <li><a href="https://www.instagram.com/__gladstudio/" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">Instagram</a></li>
               <li><a href="https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">Reddit</a></li>
               <li><button data-cal-link="arjun-rajput-2mdsis" data-cal-config={JSON.stringify({layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'})} className="hover:text-foreground transition-colors cursor-pointer text-left">Book a call</button></li>
             </ul>

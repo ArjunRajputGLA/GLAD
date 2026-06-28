@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router'
 import { useState } from "react";
-import { ArrowRight, Check, Mail, Linkedin, Shield, Twitter } from "lucide-react";
+import { ArrowRight, Check, Instagram, Mail, Linkedin, Shield, Twitter } from "lucide-react";
 import redditLogo from "./images/reddit-logo.png";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -89,6 +89,7 @@ function ContactPage() {
               <ContactItem icon={Mail} label="Email" value="hello@gladstudio.net" href="#" onClick={(e) => { e.preventDefault(); setIsEmailModalOpen(true); }} />
               <ContactItem icon={Twitter} label="X (Twitter)" value="@_GLAD_Studio" href="https://x.com/_GLAD_Studio" target="_blank" />
               <ContactItem icon={Linkedin} label="LinkedIn" value="GLAD Studio" href="https://www.linkedin.com/company/glad-studio-2k26" target="_blank" />
+              <ContactItem icon={Instagram} label="Instagram" value="@__gladstudio" href="https://www.instagram.com/__gladstudio/" target="_blank" />
               <ContactItem icon={({ className }: { className?: string }) => <img src={redditLogo} alt="Reddit" className={`${className} scale-125 dark:invert`} />} label="Reddit" value="r/GLADStudio" href="https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK" target="_blank" />
             </div>
 
